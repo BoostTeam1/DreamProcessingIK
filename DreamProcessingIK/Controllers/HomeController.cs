@@ -97,7 +97,6 @@ namespace DreamProcessingIK.Controllers
             if (ModelState.IsValid)
             {
                 SignInResult result = await _userService.LogIn(userForLoginDto);
-
                 if (result.Succeeded)
                 {
                     AppUser user = await _userManager.FindByEmailAsync(userForLoginDto.EMail);
