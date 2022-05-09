@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace DreamProcessingIK.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]  ///emre
     public class AdminController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -47,8 +47,6 @@ namespace DreamProcessingIK.Controllers
             _roleManager = roleManager;
             _companySectorService = companySectorService;
         }
-
-
         #region About User
 
         #endregion
