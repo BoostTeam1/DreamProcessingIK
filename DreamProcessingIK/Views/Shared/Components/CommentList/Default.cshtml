@@ -1,0 +1,43 @@
+﻿@model List<Entities.Concrete.AppUser>
+
+<div class="page-section">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-6 wow fadeIn">
+                <h2>Kullanıcı Yorumlarımız</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="owl-carousel stack-carousel mt-5 wow fadeInUp">
+            <div class="item">
+                <div class="ratings fs-small py-3">
+                    <span class="icon mai-star"></span>
+                    <span class="icon mai-star"></span>
+                    <span class="icon mai-star"></span>
+                    <span class="icon mai-star"></span>
+                    <span class="icon mai-star"></span>
+                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="caption">@item.Comment</div>
+                    <a href="/Home/Details?id=@item.Id" type="sumbit" class="btn btn-success"> Detay </a>
+                    <div class="avatar mt-3">
+                        <div class="avatar-img">
+                            <img src="~/Home_root/img/person/person_2.png" alt="">
+                        </div>
+                        <div class="avatar-caption">
+                            <p class="mb-0 fw-medium fg-primary">@item.UserName</p>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

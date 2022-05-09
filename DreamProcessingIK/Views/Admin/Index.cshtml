@@ -1,0 +1,25 @@
+﻿@model List<CompanySectorDto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+
+
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.CompanyId
+            </td>
+            <td>
+                @item.SectorId
+            </td>
+        </tr>
+    }
+
+</table>

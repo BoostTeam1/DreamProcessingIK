@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Entities.Concrete.Company>
+
+@{
+    ViewData["Title"] = "GetCompanies";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsConfirmed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyDetail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logo)
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsConfirmed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyDetail)
+                </td>
+                <td>
+                    <img style="object-fit:contain; max-height: 150px; max-width: 200px;" src="~/images/@item.Logo" alt="Alternate Text" />
+                </td>
+                 <td>
+                    @Html.ActionLink("Edit", "EditCompany", new {  id=item.Id  })
+                    </td>
+            </tr>
+        }
+    </tbody>
+</table>

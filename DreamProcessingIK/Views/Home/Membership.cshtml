@@ -1,0 +1,31 @@
+﻿@model MembershipDto
+@{
+     ViewData["Title"] = "Paketler";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Membership</title>
+</head>
+<body>
+
+    <form asp-action="Membership" asp-controller="Home" method="post">
+            @* <div class="form-group">
+                <label asp-for="User.UserName" class="control-label"></label>
+                <input asp-for="User.UserName" class="form-control" value="@Model.User.UserName"></input>
+                <span asp-validation-for="User.UserName" class="text-danger"></span>
+            </div>*@
+             <div class="form-group">
+                <label asp-for="PaketId" class="control-label"></label>
+                <select asp-for="PaketId" class="form-control" asp-items="ViewBag.Paket"></select>
+                <span asp-validation-for="PaketId" class="text-danger"></span>
+                <input type="submit" value="Kaydet" class="btn btn-success" />
+            </div>
+    </form>
+
+</body>
+</html>

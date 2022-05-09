@@ -1,0 +1,62 @@
+﻿@model Entities.Concrete.Vacation
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateVacation</title>
+
+    <script type="text/javascript" src="~/jquery.js"></script>
+    <script type="text/javascript" src="~/farbtastic.js"></script>
+    <link rel="stylesheet" href="~/farbtastic.css" type="text/css" />
+
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+          $('#demo').hide();
+          $('#picker').farbtastic('#color');
+        });
+    </script>
+
+</head>
+<body>
+
+    <h4>Vacation</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="EditVacation">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Color" class="control-label"></label>
+                    <input asp-for="Color" class="form-control" />
+                    <span asp-validation-for="Color" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Edit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    @*<div id="demo" style="color: red; font-size: 1.4em">jQuery.js is not present. You must install jQuery in this folder for the demo to work.</div>
+
+        <form action="" style="width: 400px;">
+        <div class="form-item"><label for="color">Color:</label><input type="text" id="color" name="color" value="#123456" /></div><div id="picker"></div>
+        </form>
+    *@
+    <div>
+        <a asp-action="Vacations">Back to Vacations</a>
+    </div>
+
+</body>
+</html>
+

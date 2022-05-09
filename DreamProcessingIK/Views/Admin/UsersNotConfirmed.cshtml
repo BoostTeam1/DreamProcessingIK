@@ -1,0 +1,35 @@
+﻿@model List<UserNotConfirmedDto>
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>User Id</th>
+        <th>User Name</th>
+        <th>Kullanıcı Doğrulaması</th>
+        
+
+    </tr>
+
+
+</table>
+ <form asp-controller="Admin" asp-action="UsersNotConfirmed">
+
+    @for (var i = 0; i <Model.Count(); i++)
+   {
+      
+           <div class="form-check">
+               <input asp-for="@Model[i].Exist" type="checkbox" class="form-check-input"/>
+               <label asp-for="@Model[i].UserId" class="form-check-label">True</label>
+               <input asp-for="@Model[i].UserId" type="hidden"/>
+           </div>
+
+           
+
+   }
+   <input class="btn btn-success" type="submit" value="ekle" />
+
+   
+ </form>

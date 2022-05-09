@@ -1,0 +1,130 @@
+﻿@model CompanyCommentDetailsDto
+@{
+    ViewData["Title"] = "CommentDetail";
+    Layout = "~/Views/Shared/HomeLayout/_Login.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="description" content="Mobile Application HTML5 Template">
+
+    <meta name="copyright" content="MACode ID, https://www.macodeid.com/">
+
+    <title>Mobster - One page app template</title>
+
+    <link rel="shortcut icon" href="~/Home_root/favicon.png" type="image/x-icon">
+
+    <link rel="stylesheet" href="~/Home_root/css/maicons.css">
+
+    <link rel="stylesheet" href="~/Home_root/vendor/animate/animate.css">
+
+    <link rel="stylesheet" href="~/Home_root/vendor/owl-carousel/css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="~/Home_root/css/bootstrap.css">
+
+    <link rel="stylesheet" href="~/Home_root/css/mobster.css">
+
+
+
+    <script src="~/Home_root/js/jquery-3.5.1.min.js"></script>
+
+    <script src="~/Home_root/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Home_root/vendor/owl-carousel/js/owl.carousel.min.js"></script>
+
+    <script src="~/Home_root/vendor/wow/wow.min.js"></script>
+
+    <script src="~/Home_root/js/mobster.js"></script>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-floating">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="~/Home_root/favicon-light.png" alt="" width="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="ml-auto my-2 my-lg-0">
+                <button class="btn btn-primary rounded-pill" asp-controller="Home" asp-action="SignUp">Üye Ol</button>
+            </div>
+        </div>
+    </nav>
+    <main class="bg-light">
+
+        <div class="page-hero-section bg-image hero-mini" style="background-image: url(./Home_root/img/register.jpg);">
+            <div class="hero-caption">
+                <div class="container fg-white h-100">
+                    <div class="row justify-content-center align-items-center text-center h-100">
+                        <div class="col-lg-6">
+
+                            <!--<h3 class="mb-4 fw-medium">Yorum</h3>-->
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb breadcrumb-dark justify-content-center bg-transparent">
+                                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-section pt-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="card-page">
+                            <hr/>
+                            <h3>Şirket Deneyimi</h3>
+                            <p>@Model.Comment</p>
+                        </div>
+                        <div class="card-page mt-3">
+
+                            <h5 class="fg-primary">Biz Kimiz ?</h5>
+                            <hr>
+                            <!--Şirket Bilgileri-->
+                            <div class="row justify-content-center">
+                                    <div class="team-item">
+                                        @* <div class="team-avatar">
+                                            <img style="object-fit:contain; max-height: 150px; max-width: 200px;" src="~/images/@Model.Logo" alt="Alternate Text" />
+                                            </div>*@
+                                        <table class="table table-bordered table-striped" style="margin-left:auto; margin-right:auto">
+                                            <tr>
+                                                <th>Şirket Logosu</th>
+                                                <th>Şirket Adı</th>
+                                                <th>Yönetici Kullanıcı Adı</th>
+                                                <th>Şirket Detayları</th>
+                                            </tr>
+                                            <tr>
+                                                <td><img style="object-fit:contain; max-height: 150px; max-width: 200px;" src="~/images/@Model.Logo" alt="Alternate Text" /></td>
+                                                <td>@Model.CompanyName</td>
+                                                <td>@Model.UserName</td>
+                                                <td>@Model.CompanyDetail</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+
+
+
+</body>
+</html>
+

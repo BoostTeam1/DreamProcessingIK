@@ -1,0 +1,63 @@
+﻿@model CreateVacationUserDto
+@{
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateUserVacation</title>
+</head>
+<body>
+
+    <h1>Tatil Günü Belirleyiniz</h1>
+
+   @* <h4>CreateCompanyForAdminDto</h4>*@
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="CreateUserVacation">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="UserId" class="control-label"></label>
+                    <select asp-for="UserId" name="UserId">
+                        @foreach (var item in Model.Users)
+                       {
+                            <option value="@item.Id">@item.UserName</option>
+                       }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="VacationId" class="control-label"></label>
+                    <select asp-for="VacationId" name="VacationId">
+                        @foreach (var item in Model.Vacations)
+                       {
+                            <option value="@item.Id">@item.Name</option>
+                       }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartDate" class="control-label"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate" class="control-label"></label>
+                    <input asp-for="EndDate" class="form-control" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @*<div>
+        <a asp-action="UserVacations">Back to Vacations of Users</a>
+    </div>*@
+
+</body>
+</html>

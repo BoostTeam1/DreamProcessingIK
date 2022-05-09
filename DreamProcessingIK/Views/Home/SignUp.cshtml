@@ -1,0 +1,171 @@
+﻿@model Entities.Dtos.UserForRegisterDto
+
+@{
+    ViewData["Title"] = "SignUp";
+    Layout = "~/Views/Shared/HomeLayout/_Login.cshtml";
+}
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/Home_root/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/Home_root/css/owl.carousel.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Home_root/css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="~/Home_root/css/style.css">
+
+    <title>Register</title>
+  </head>
+  <body>
+   
+    
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+            <a asp-controller="Home" asp-action="Index" ><img src="~/Home_root/img/register.jpg" alt="Image" class="img-fluid" ></a>
+         
+        </div>
+        <div class="col-md-6 contents">
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <div class="mb-4">
+              <p class="mb-4">Lütfen Bizimle Bilgilerinizi Paylaşın </p>
+            </div>
+            <form asp-controller="Home"  asp-action="SignUp" method="post">
+                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group first">
+                    <label asp-for="FirstName">Adınız</label>
+                    <input asp-for="FirstName" class="form-control" > 
+                    <span asp-validation-for="EMail" class="text-danger"></span>
+                </div>
+
+                <div class="form-group first">
+                    <label asp-for="LastName">Soyadınız</label>
+                    <input asp-for="LastName" class="form-control" > 
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+              </div>
+
+              <div class="form-group last mb-4">
+                <label asp-for="EMail">Mail Adresiniz</label>
+                <input asp-for="EMail" class="form-control" > 
+                <span asp-validation-for="EMail" class="text-danger"></span>
+              </div>
+
+              <div class="form-group last mb-4">
+                <label asp-for="UserName">Kullanıcı Adınız</label>
+                <input asp-for="UserName" class="form-control" > 
+                <span asp-validation-for="UserName" class="text-danger"></span>
+              </div>
+
+
+              @*<div class="form-group last mb-4">
+                <label asp-for="">Sektör</label>
+                <input asp-for="#" class="form-control">
+                <span asp-validation-for="EMail" class="text-danger"></span>
+              </div>*@
+
+               @*<div class="form-group last mb-4">
+                <label asp-for="">Şirket Adı</label>
+                <input asp-for="#" class="form-control">
+                <span asp-validation-for="" class="text-danger"></span>
+              </div>*@
+
+               @*<div class="form-group last mb-4">
+                  <label asp-for="#">Çalışan Sayısı</label>
+                  <input asp-for="#" class="form-control">
+                  <span asp-validation-for="" class="text-danger"></span>
+              </div>*@
+
+               <div class="form-group last mb-4">
+                  <label asp-for="Password">Parola</label>
+                  <input asp-for="Password" class="form-control" type="password">
+                  <span asp-validation-for="Password" class="text-danger"></span>
+              </div>
+             
+              <input type="submit" value="Kayıt Ol" class="btn btn-block btn-primary">
+              
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+     </div>
+    <script src="~/Home_rootjs/jquery-3.3.1.min.js"></script>
+    <script src="~/Home_rootjs/popper.min.js"></script>
+    <script src="~/Home_rootjs/bootstrap.min.js"></script>
+    <script src="~/Home_rootjs/main.js"></script>
+  </body>
+</html>
+
+
+
+
+
+
+
+
+@*@if(ViewBag.status==true)
+{
+    <div class="alert alert-info">Kişi başarıyla oluşturulmuştur</div>
+}
+else
+{
+    <hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SignUp">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EMail" class="control-label"></label>
+                <input asp-for="EMail" class="form-control" />
+                <span asp-validation-for="EMail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthPlace" class="control-label"></label>
+                <input asp-for="BirthPlace" class="form-control" />
+                <span asp-validation-for="BirthPlace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+}*@
