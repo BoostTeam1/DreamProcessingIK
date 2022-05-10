@@ -128,7 +128,7 @@ namespace DreamProcessingIK.Controllers
                             {
                                 return Redirect(TempData["ReturnUrl"].ToString());
                             }
-                            return RedirectToAction("Index", "Manager");
+                            return RedirectToAction("AddEmployee", "Manager");
                         }
                         else if (item.Contains("Admin"))
                         {
