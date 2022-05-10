@@ -97,7 +97,6 @@ namespace DreamProcessingIK.Controllers
             if (ModelState.IsValid)
             {
                 SignInResult result = await _userService.LogIn(userForLoginDto);
-
                 if (result.Succeeded)
                 {
                     AppUser user = await _userManager.FindByEmailAsync(userForLoginDto.EMail);
@@ -128,7 +127,7 @@ namespace DreamProcessingIK.Controllers
                             {
                                 return Redirect(TempData["ReturnUrl"].ToString());
                             }
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("Index", "Manager");
                         }
                         else if (item.Contains("Admin"))
                         {
