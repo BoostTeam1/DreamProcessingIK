@@ -467,8 +467,7 @@ namespace DreamProcessingIK.Controllers
             };
             return new JsonResult(vs);
         }
-        
-
+      
         #region Grafik
         public IActionResult Chart()
         {
