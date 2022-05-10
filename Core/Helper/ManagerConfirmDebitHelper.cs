@@ -1,5 +1,4 @@
 ﻿using System;
-
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Helper
 {
-    public static class ManagerConfirmHelper
+    public static class ManagerConfirmDebitHelper
     {
         public static void ManagerConfirmEmail(string email)
         {
@@ -17,7 +16,7 @@ namespace Core.Helper
             mail.From = new MailAddress("boost@photographybella.com");
             mail.To.Add(email);
             mail.Subject = $"Tebrikler !";
-            mail.Body += $"<h2> Tebrikler şirketiniz kabul edilmiştir. </h2>";
+            mail.Body += $"<h2> Tebrikler zimmetiniz kabul edilmiştir. </h2>";
             mail.IsBodyHtml = true;
             smtpClient.Port = 587;
             smtpClient.Credentials = new System.Net.NetworkCredential("boost@photographybella.com", "45526201Co");

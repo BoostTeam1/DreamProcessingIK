@@ -43,6 +43,27 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<EfSectorDal>().As<ISectorDal>();
             builder.RegisterType<SectorManager>().As<ISectorService>();
+
+
+            builder.RegisterType<EfBreakDal>().As<IBreakDal>();
+            builder.RegisterType<BreakManager>().As<IBreakService>();
+
+            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>();
+            builder.RegisterType<CategoryManager>().As<ICategoryService>();
+            builder.RegisterType<EfCostDal>().As<ICostDal>();
+            builder.RegisterType<CostManager>().As<ICostService>();
+            builder.RegisterType<EfDebitDal>().As<IDebitDal>();
+            builder.RegisterType<DebitManager>().As<IDebitService>();
+            builder.RegisterType<EfShiftDal>().As<IShiftDal>();
+            builder.RegisterType<ShiftManager>().As<IShiftService>();
+            builder.RegisterType<EfUserCostDal>().As<IUserCostDal>();
+            builder.RegisterType<UserCostManager>().As<IUserCostService>();
+
+            builder.RegisterType<EfUserDebitDal>().As<IUserDebitDal>();
+            builder.RegisterType<UserDebitManager>().As<IUserDebitService>();
+            builder.RegisterType<EfUserShiftBreakDal>().As<IUserShiftBreakDal>();
+            builder.RegisterType<UserShiftBreakManager>().As<IUserShiftBreakService>();
+
             //builder.RegisterType<UserManager<AppUser>>().As<IDisposable>();
 
 
