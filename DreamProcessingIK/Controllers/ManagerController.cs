@@ -297,13 +297,52 @@ namespace DreamProcessingIK.Controllers
         }
 
 
-        public IActionResult AddDebit()
+        [HttpGet]
+        public IActionResult AddDebit(string id)
         {
-            return View();
-        }
-        public IActionResult AddDebit(RequestDebitVmDto requestDebitVmDto,string id)
-        {
+            TempData["userId"] = id;
+            //var result = (from x in _debitService.GetList().ToList()
+            //              join c in _categoryService.GetList().ToList() on x.CategoryId equals c.Id
+            //              select new
+            //              {
+                              
+            //                  x.ProductName,
+            //                  x.ProductDetail,
+            //                  c.CategoryName
+            //              }).ToList();
+            //List<RequestDebitVmDto> debit = new List<RequestDebitVmDto>();
+            //foreach (var item in result)
+            //{
+            //    debit.Add(new RequestDebitVmDto()
+            //    {
 
+            //        ProductName = item.ProductName,
+            //        ProductDetail = item.ProductDetail,
+            //        CategoryName = item.CategoryName
+
+
+            //    });
+            //}
+
+            //join kısmında eksik olabilir, post methodunda userdebitdto ya verileri aktarmada sorun yasadık.
+                return View(/*debit*/);
+        }
+        [HttpPost]
+        public IActionResult AddDebit(RequestDebitVmDto requestDebitVmDto)
+        {
+            
+            AppUser user = _userManager.FindByIdAsync(TempData["userId"].ToString()).Result;
+            UserDebitDto userdebitdto = new UserDebitDto();
+
+
+            userdebitdto.StartDate = requestDebitVmDto.StartDate;
+            userdebitdto.EndDate = requestDebitVmDto.EndDate;
+            userdebitdto.DebitId = requestDebitVmDto.DebitId;
+            userdebitdto.IsReceived = false;
+            userdebitdto.UserId = user.Id;
+            
+            
+            _userDebitService.Add(userdebitdto);
             return View();
         }
 

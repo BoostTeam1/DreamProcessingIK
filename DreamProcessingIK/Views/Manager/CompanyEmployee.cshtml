@@ -22,7 +22,7 @@
               
                <td>@item.FirstName</td>
                <td>@item.LastName</td>
-               <td><a class="btn btn-success" asp-controller="Member" asp-action="AddDebit" asp-route-id="@item.UserId"> Zimmet Ekle</a>   </td>
+               <td><a href="/Manager/AddDebit?id=@item.UserId" type="sumbit" class="btn btn-success"> Zimmet Ekle</a>   </td>
            </tr>
        }
     }
