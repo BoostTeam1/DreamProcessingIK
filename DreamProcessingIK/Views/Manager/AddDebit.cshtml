@@ -13,10 +13,15 @@
                     <input asp-for="EndDate" class="form-control" type="datetime" > 
                     <span asp-validation-for="EndDate" class="text-danger"></span>
               </div>
-
+              
+                <div class="form-group first">
+                    <label asp-for="EndDate">Bitiş Tarihi:</label>
+                    <input asp-for="EndDate" class="form-control" type="datetime" > 
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+              </div>
               <div class="form-group last mb-4">
-                <label asp-for="DebitId">Zimmet Id:</label>
-                <input asp-for="DebitId" class="form-control" > 
+                <label asp-for="DebitId" class="control-label"> </label>
+                 <select asp-for="DebitId" class="form-control" asp-items="ViewBag.Product"></select>
                 <span asp-validation-for="DebitId" class="text-danger"></span>
               </div>
 

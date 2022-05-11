@@ -4,6 +4,7 @@ using Entities.Dtos;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -301,36 +302,54 @@ namespace DreamProcessingIK.Controllers
         public IActionResult AddDebit(string id)
         {
             TempData["userId"] = id;
+
             //var result = (from x in _debitService.GetList().ToList()
             //              join c in _categoryService.GetList().ToList() on x.CategoryId equals c.Id
             //              select new
             //              {
-                              
+            //                  x.Id,
             //                  x.ProductName,
             //                  x.ProductDetail,
-            //                  c.CategoryName
+            //                  x.CategoryId,
+            //                  x.Category.CategoryName
             //              }).ToList();
-            //List<RequestDebitVmDto> debit = new List<RequestDebitVmDto>();
-            //foreach (var item in result)
-            //{
-            //    debit.Add(new RequestDebitVmDto()
-            //    {
 
-            //        ProductName = item.ProductName,
-            //        ProductDetail = item.ProductDetail,
-            //        CategoryName = item.CategoryName
+         var debit=   _debitService.GetList().ToList();
+            var category = _categoryService.GetList().ToList();
+         
+            foreach (var item in debit)
+            {
+                Dictionary<string, string> product = new Dictionary<string, string>();
+                if (product.Count == 0)
+                {
+                    product.Add(item.Id.ToString(), item.ProductName);
 
+                    ViewBag.Product = new SelectList(product, "Key", "Value");
+                }
+            }
+            foreach (var item in category)
+            {
+                Dictionary<string, string> categoryList = new Dictionary<string, string>();
+                if (category.Count == 0)
+                {
+                    categoryList.Add(item.Id.ToString(), item.CategoryName);
 
-            //    });
-            //}
+                    ViewBag.Category = new SelectList(categoryList, "Key", "Value");
+                }
+            }
+           
 
-            //join kısmında eksik olabilir, post methodunda userdebitdto ya verileri aktarmada sorun yasadık.
-                return View(/*debit*/);
+         
+
+            return View();
         }
         [HttpPost]
         public IActionResult AddDebit(RequestDebitVmDto requestDebitVmDto)
         {
-            
+
+
+         
+
             AppUser user = _userManager.FindByIdAsync(TempData["userId"].ToString()).Result;
             UserDebitDto userdebitdto = new UserDebitDto();
 
@@ -343,6 +362,22 @@ namespace DreamProcessingIK.Controllers
             
             
             _userDebitService.Add(userdebitdto);
+            return View();
+        }
+        public IActionResult DebitList()
+        {
+           
+            return View(_debitService.GetList().ToList());
+        }
+
+        public IActionResult CreateDebit()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateDebit(Debit debit)
+        {
+            _debitService.Add(debit);
             return View();
         }
 
