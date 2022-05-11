@@ -1,6 +1,8 @@
-﻿@model EmployeeAddDto
+﻿
+
+@model EmployeeAddDto
 @{
-    Layout = null;
+     Layout = "~/Views/Shared/_Manager.cshtml";
 }
             <form asp-controller="Manager"  asp-action="AddEmployee" method="post">
                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
