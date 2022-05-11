@@ -11,7 +11,7 @@ namespace Entities.Concrete
     {
         public string UserId { get; set; }
         public int? CostId { get; set; }
-
+        public string ManagerApprovedId { get; set; }
         public virtual Cost Cost { get; set; }
         public virtual AppUser User { get; set; }
     }

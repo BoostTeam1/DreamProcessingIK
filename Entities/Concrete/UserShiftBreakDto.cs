@@ -12,7 +12,7 @@ namespace Entities.Concrete
         public string UserId { get; set; }
         public int? ShiftId { get; set; }
         public int? BreakId { get; set; }
-
+        public string ManagerApprovedId { get; set; }
         public virtual Break Break { get; set; }
         public virtual Shift Shift { get; set; }
         public virtual AppUser User { get; set; }

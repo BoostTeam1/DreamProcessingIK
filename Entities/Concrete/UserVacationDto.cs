@@ -11,6 +11,7 @@ namespace Entities.Concrete
     {
         public string UserId { get; set; }
         public int? HolidayId { get; set; }
+        public string ManagerApprovedId { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool? IsConfirmed { get; set; }

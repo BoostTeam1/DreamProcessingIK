@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Manager\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

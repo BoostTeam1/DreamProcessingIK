@@ -1,0 +1,45 @@
+﻿@model List<RequestDebitVmDto>
+@{
+    Layout = null;
+}
+
+
+
+
+
+
+<table class="table table-bordered table-striped">
+    <tr>
+    <th> UserId</th>
+    <th>FirstName</th>
+    <th>LastName</th>
+    <th>StartDate</th>
+    <th>EndDate</th>
+    <th>CategoryName</th>
+    <th>ProductName</th>
+    <th>ProductDetail</th>
+    </tr>
+    @if(Model.Count()==0)
+    {
+        <tr>
+            <td colspan=3>Hiç bir zimmet yoktur</td>
+        </tr>
+    }
+    else
+    {
+        @foreach (var item in Model)
+       {
+           <tr>
+               <td>@item.UserId</td>
+               <td>@item.FirstName</td>
+               <td>@item.LastName</td>
+               <td>@item.StartDate</td>
+               <td>@item.EndDate</td>
+               <td>@item.CategoryName</td>
+               <td>@item.ProductName</td>
+               <td>@item.ProductDetail</td>
+           </tr>
+       }
+    }
+</table>
+
