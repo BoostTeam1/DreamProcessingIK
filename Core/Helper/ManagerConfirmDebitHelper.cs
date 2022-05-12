@@ -16,7 +16,7 @@ namespace Core.Helper
             mail.From = new MailAddress("boost@photographybella.com");
             mail.To.Add(email);
             mail.Subject = $"Tebrikler !";
-            mail.Body += $"<h2> Tebrikler zimmetiniz kabul edilmiştir. </h2>";
+            mail.Body += $"<h2> Zimmetiniz atanmıştır </h2>";
             mail.IsBodyHtml = true;
             smtpClient.Port = 587;
             smtpClient.Credentials = new System.Net.NetworkCredential("boost@photographybella.com", "45526201Co");

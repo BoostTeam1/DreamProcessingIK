@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Helper;
 using Entities.Concrete;
 using Entities.Dtos;
 using Mapster;
@@ -18,11 +19,12 @@ namespace DreamProcessingIK.Controllers
         public RoleManager<AppRole> _roleManager;
         public SignInManager<AppUser> _signInManager;
         private readonly IUserCompanyService _userCompanyService;
+        private readonly IVacationService _vacationService;
         private readonly IUserVacationService _userVacationService;
         private readonly IUserDebitService _userDebitService;
         private readonly IDebitService _debitService;
         private readonly ICategoryService _categoryService;
-        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService)
+        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService)
         {
             _categoryService = categoryService;
             _debitService = debitService;
@@ -33,7 +35,7 @@ namespace DreamProcessingIK.Controllers
 
             _signInManager = signInManager;
             _userManager = userManager;
-
+            _vacationService = vacationService;
 
         }
 
@@ -180,19 +182,24 @@ namespace DreamProcessingIK.Controllers
 
                           }).Where(x => x.CompanyId == companyFind.CompanyId).ToList();
             var userVoca = _userVacationService.GetList();
-            var findUserVoca = (from x in userVoca.ToList()
+            var findUserVoca = (from x in userVoca.ToList() 
+                                join u in _userManager.Users.ToList() on x.UserId equals u.Id 
+                                join v in _vacationService.GetList().ToList() on x.HolidayId equals v.Id
                                 select new
                                 {
                                     x.ManagerApprovedId,
                                     x.UserId,
-                                    x.IsConfirmed,
-
+                                    İsim = u.FirstName + " " + u.LastName,
+                                    OnayDurumu = x.IsConfirmed,
+                                    x.HolidayId,
+                                    v.Name
                                 }).ToList();
-
+             
             foreach (var item in findUserVoca)
             {
                 if (item.ManagerApprovedId == usera.Id)
                 {
+
                     break;
                 }
 
@@ -240,14 +247,14 @@ namespace DreamProcessingIK.Controllers
             {
                 debit.Add(new RequestDebitVmDto()
                 {
-                    UserId= item.UserId,
-                    FirstName=item.FirstName,
-                    LastName=item.LastName,
-                    StartDate=item.StartDate,
-                    EndDate=item.EndDate,
-                    CategoryName=item.CategoryName,
-                    ProductName=item.ProductName,
-                    ProductDetail=item.ProductDetail,
+                    UserId = item.UserId,
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    StartDate = item.StartDate,
+                    EndDate = item.EndDate,
+                    CategoryName = item.CategoryName,
+                    ProductName = item.ProductName,
+                    ProductDetail = item.ProductDetail,
 
                 });
 
@@ -256,18 +263,18 @@ namespace DreamProcessingIK.Controllers
             return View(debit);
         }
 
-   [HttpGet]
+        [HttpGet]
         public IActionResult CompanyEmployee()
         {
             AppUser user = new AppUser();
             AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
-       
+
             var companyFind = _userCompanyService.GetByUserId(usera.Id);
 
 
 
             var companyList = _userCompanyService.GetList();
-            var result = (from x in companyList.ToList() 
+            var result = (from x in companyList.ToList()
                           join u in _userManager.Users.ToList() on x.UserId equals u.Id
                           select new
                           {
@@ -279,17 +286,17 @@ namespace DreamProcessingIK.Controllers
 
                           }).Where(x => x.CompanyId == companyFind.CompanyId).ToList();
             List<EmployeeListCompanyDto> employeeLists = new List<EmployeeListCompanyDto>();
-       
+
             foreach (var item in result)
             {
-                if (usera.Id !=item.UserId)
+                if (usera.Id != item.UserId)
                 {
-                employeeLists.Add(new EmployeeListCompanyDto()
-                {
-                    UserId=item.UserId,
-                    FirstName=item.FirstName,
-                    LastName=item.LastName
-                });
+                    employeeLists.Add(new EmployeeListCompanyDto()
+                    {
+                        UserId = item.UserId,
+                        FirstName = item.FirstName,
+                        LastName = item.LastName
+                    });
                 }
             }
 
@@ -314,32 +321,27 @@ namespace DreamProcessingIK.Controllers
             //                  x.Category.CategoryName
             //              }).ToList();
 
-         var debit=   _debitService.GetList().ToList();
+            var debit = _debitService.GetList().ToList();
             var category = _categoryService.GetList().ToList();
-         
+            Dictionary<string, string> product = new Dictionary<string, string>();
+            Dictionary<string, string> categoryList = new Dictionary<string, string>();
+
             foreach (var item in debit)
             {
-                Dictionary<string, string> product = new Dictionary<string, string>();
-                if (product.Count == 0)
+                if (!product.ContainsKey(item.Id.ToString()))
                 {
                     product.Add(item.Id.ToString(), item.ProductName);
-
-                    ViewBag.Product = new SelectList(product, "Key", "Value");
                 }
             }
+            ViewBag.Product = new SelectList(product, "Key", "Value");
             foreach (var item in category)
             {
-                Dictionary<string, string> categoryList = new Dictionary<string, string>();
-                if (category.Count == 0)
+                if (!categoryList.ContainsKey(item.Id.ToString()))
                 {
                     categoryList.Add(item.Id.ToString(), item.CategoryName);
-
-                    ViewBag.Category = new SelectList(categoryList, "Key", "Value");
                 }
             }
-           
-
-         
+            ViewBag.Category = new SelectList(categoryList, "Key", "Value");
 
             return View();
         }
@@ -348,7 +350,6 @@ namespace DreamProcessingIK.Controllers
         {
 
 
-         
 
             AppUser user = _userManager.FindByIdAsync(TempData["userId"].ToString()).Result;
             UserDebitDto userdebitdto = new UserDebitDto();
@@ -359,14 +360,15 @@ namespace DreamProcessingIK.Controllers
             userdebitdto.DebitId = requestDebitVmDto.DebitId;
             userdebitdto.IsReceived = false;
             userdebitdto.UserId = user.Id;
-            
-            
+
             _userDebitService.Add(userdebitdto);
+            ManagerConfirmDebitHelper.ManagerConfirmEmail(user.Email);
+
             return View();
         }
         public IActionResult DebitList()
         {
-           
+
             return View(_debitService.GetList().ToList());
         }
 

@@ -123,7 +123,7 @@ namespace DreamProcessingIK.Controllers
 
 
         [HttpPost]
-        public async   Task<IActionResult> RequestVocation(UserVacationVmDto userVacationVmDto)
+        public async   Task<IActionResult> RequestVocation(UserVacationDto userVacationDto1)
         {
             AppUser user = new AppUser();
             AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
@@ -160,19 +160,19 @@ namespace DreamProcessingIK.Controllers
 
             }
 
-            UserVacationDto   userVacationDto = new UserVacationDto();
+            UserVacationDto  userVacationDto = new UserVacationDto();
             userVacationDto.UserId = ViewBag.employeeıd;
-            userVacationDto.StartDate = userVacationVmDto.StartDate;
-            userVacationDto.EndDate = userVacationVmDto.EndDate;
-            userVacationDto.HolidayId = userVacationVmDto.HolidayId;
-            //userVacationDto.ApprovedManagerId = ViewBag.managerId;
+            userVacationDto.StartDate = userVacationDto1.StartDate;
+            userVacationDto.EndDate = userVacationDto1.EndDate;
+            userVacationDto.HolidayId = userVacationDto1.HolidayId;
+            userVacationDto.ManagerApprovedId = ViewBag.managerId;
             userVacationDto.IsConfirmed = false;
            _userVacationService.Add(userVacationDto);
 
 
 
 
-            return View(userVacationVmDto);
+            return View(userVacationDto1);
         }
   
 
