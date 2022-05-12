@@ -182,8 +182,8 @@ namespace DreamProcessingIK.Controllers
 
                           }).Where(x => x.CompanyId == companyFind.CompanyId).ToList();
             var userVoca = _userVacationService.GetList();
-            var findUserVoca = (from x in userVoca.ToList() 
-                                join u in _userManager.Users.ToList() on x.UserId equals u.Id 
+            var findUserVoca = (from x in userVoca.ToList()
+                                join u in _userManager.Users.ToList() on x.UserId equals u.Id
                                 join v in _vacationService.GetList().ToList() on x.HolidayId equals v.Id
                                 select new
                                 {
@@ -194,16 +194,36 @@ namespace DreamProcessingIK.Controllers
                                     x.HolidayId,
                                     v.Name
                                 }).ToList();
-             
+            List<VacationConfirmedDto> vacationConfirmedDto = new List<VacationConfirmedDto>();
+
             foreach (var item in findUserVoca)
             {
                 if (item.ManagerApprovedId == usera.Id)
                 {
+                    vacationConfirmedDto.Add(new VacationConfirmedDto()
+                    {
 
-                    break;
+                        HolidayId = (int)item.HolidayId,
+                        FullName = item.İsim,
+                        UserId = item.UserId,
+                        IsConfirmed = (bool)item.OnayDurumu,
+                        Name = item.Name
+
+                    });
+
+
                 }
 
             }
+            return View(vacationConfirmedDto);
+        }
+
+        [HttpPost]
+        public IActionResult ApprovedVacation(VacationConfirmedDto vacationConfirmedDto)
+        {
+
+
+
             return View();
         }
 
@@ -215,6 +235,42 @@ namespace DreamProcessingIK.Controllers
 
             return View();
         }
+
+
+        public IActionResult VacationConfirm(string id)
+        {
+
+            TempData["userId"] = id;
+            var userFind = _userManager.FindByIdAsync(TempData["userId"].ToString()).Result;
+            //deneme
+            //deneme2
+            var result = _userVacationService.GetList();
+            foreach (var item in result)
+            {
+                // UserVacationDto userVacationDto = _userVacationService.GetByVacationId((int)item.HolidayId);
+
+                if (item.UserId == userFind.Id)
+                {
+                    if (item.IsConfirmed == false)
+                    {
+                        item.IsConfirmed = true;
+
+
+                    }
+                    else if (item.IsConfirmed == true)
+                    {
+                        item.IsConfirmed = false;
+
+                    }
+                    _userVacationService.Update(item);
+
+                }
+
+            }
+
+            return RedirectToAction("ApprovedVacation", "Manager");
+        }
+
 
         [HttpGet]
         public IActionResult GivenDebit()
@@ -382,6 +438,8 @@ namespace DreamProcessingIK.Controllers
             _debitService.Add(debit);
             return View();
         }
+
+
 
 
         public void AddModelError(IdentityResult result)
