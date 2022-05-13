@@ -1,4 +1,8 @@
 ﻿@model UserDebitDto
+@{
+    Layout = "~/Views/Shared/_Manager.cshtml";
+}
+
 
 <form asp-controller="Manager"  asp-action="AddDebit"  method="post">
                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -30,10 +34,6 @@
                 <input asp-for="IsReceived" class="form-control" > 
                 <span asp-validation-for="IsReceived" class="text-danger"></span>
               </div>
-
-
-
-
                
 
               <input type="submit" value="Kaydet" class="btn btn-block btn-primary">
