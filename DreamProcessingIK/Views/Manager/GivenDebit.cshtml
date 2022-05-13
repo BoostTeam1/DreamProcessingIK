@@ -10,14 +10,14 @@
 
 <table class="table table-bordered table-striped">
     <tr>
-    <th> UserId</th>
-    <th>FirstName</th>
-    <th>LastName</th>
-    <th>StartDate</th>
-    <th>EndDate</th>
-    <th>CategoryName</th>
-    <th>ProductName</th>
-    <th>ProductDetail</th>
+    @*<th> UserId</th>*@
+    <th>İsim</th>
+    <th>Soyisim</th>
+    <th>Başlangıç Tarihi</th>
+    <th>Bitiş Tarihi</th>
+    <th>Kategori Adı</th>
+    <th>Ürün Adı</th>
+    <th>Ürün Detay</th>
     </tr>
     @if(Model.Count()==0)
     {
@@ -30,7 +30,7 @@
         @foreach (var item in Model)
        {
            <tr>
-               <td>@item.UserId</td>
+               @*<td>@item.UserId</td>*@
                <td>@item.FirstName</td>
                <td>@item.LastName</td>
                <td>@item.StartDate</td>

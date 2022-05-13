@@ -1,4 +1,9 @@
 ﻿@model List<BreakShiftListDto>
+
+    @{
+    
+    Layout = "~/Views/Shared/_Manager.cshtml";
+}
 <table class="table table-bordered table-striped">
     <tr>
 
@@ -33,7 +38,7 @@
                        <td>@item.BreakStartDate</td>
                        <td>@item.BreakEndDate</td>
                           <td>
-            <a href="#" type="sumbit" class="btn btn-success"> Mola Ekle</a>
+            <a asp-controller="Manager" asp-action="CreateBreak" type="sumbit" class="btn btn-success"> Mola Ekle</a>
         </td>
 
                    </tr>

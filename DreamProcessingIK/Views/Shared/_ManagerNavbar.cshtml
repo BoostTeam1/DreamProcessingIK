@@ -32,25 +32,36 @@
             </li>*@
 
              <li>
-                <a  asp-action="_AdminDashboard" asp-controller="Admin"><i class="fa fa-pencil"></i> <span class="nav-label"> Dashboard</span>  </a>
+                <a  asp-action="" asp-controller=""><i class="fa fa-pencil"></i> <span class="nav-label"> Dashboard</span>  </a>
             </li>
 
               <li>
-                <a asp-controller="Admin" asp-action="RoleCreate"><i class="fa fa-pie-chart"></i> <span class="nav-label">Personel Grafik Detay</span>  </a>
+                <a asp-controller="" asp-action=""><i class="fa fa-pie-chart"></i> <span class="nav-label">Personel Grafik Detay</span>  </a>
             </li>
             <li>
 
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Personel Yönetimi</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a asp-controller="Home" asp-action="UserEdit">Personel Bilgileri</a></li>
-                    <li><a asp-controller="Home" asp-action="ChangePassword">Personel İşlemleri</a></li>
-                    <li><a asp-controller="Admin" asp-action="GetCompanies">Personel İzin İşlemleri</a></li>
-                    <li><a asp-controller="Admin" asp-action="CreateCompany">Personel Zimmet İşlemleri</a></li>
-                    <li><a asp-controller="Admin" asp-action="Chart">Personel Prim İşlemleri</a></li>
+                    <li><a asp-controller="Employee" asp-action="UserEdit">Personel Bilgileri</a></li>
+                    @*<li><a asp-controller="Employee" asp-action="ChangePassword">Personel İşlemleri</a></li>*@
+                    <li><a asp-controller="Manager" asp-action="ApprovedVacation">Personel İzin İşlemleri</a></li>
+                   @* <li><a asp-controller="Manager" asp-action="AddDebit">Personel Zimmet İşlemleri</a></li>*@
+                    <li><a asp-controller="#" asp-action="#">Personel Prim İşlemleri</a></li>
                     <li><a href="#">Personel Özlük Belgeleri</a></li>
-                    <li><a asp-action="ManagerList" asp-controller="Admin" >Personel Vardiya İşlemleri</a></li>
-                    <li><a asp-action="PersonelList" asp-controller="Admin" >Personel Mola İşlemleri</a></li>
+                    <li><a asp-action="CreateShift" asp-controller="Manager" >Personel Vardiya İşlemleri</a></li>
+                    <li><a asp-action="CreateBreak" asp-controller="Manager" >Personel Mola İşlemleri</a></li>
+                    <li><a asp-action="ListBreakShift" asp-controller="Manager" >Personel Mola/Shift Listele</a></li>
+                    <li>
+
+                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Zimmet Ayarları</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a asp-controller="Manager" asp-action="GivenDebit">Verilen Zimmet Listesi</a></li>
+                    <li><a asp-controller="Manager" asp-action="Companyemployee">Zimmet Ekle</a></li>
+                     <li><a asp-controller="Manager" asp-action="DebitList">Zimmet Eşyaları</a></li>
+                 
                   
+                </ul>
+            </li>
                   
                 </ul>
             </li>
@@ -58,14 +69,14 @@
 
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Üye Ayarları</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a asp-controller="Home" asp-action="UserEdit">Kullanıcı Bilgileri</a></li>
-                    <li><a asp-controller="Home" asp-action="ChangePassword">Şifre Güncelle</a></li>
+                    <li><a asp-controller="Manager" asp-action="UserEdit">Kullanıcı Bilgileri</a></li>
+                    <li><a asp-controller="Manager" asp-action="ChangePassword">Şifre Güncelle</a></li>
                  
                   
                 </ul>
             </li>
             <li>
-                <a asp-controller="Admin" asp-action="RoleCreate"><i class="fa fa-pie-chart"></i> <span class="nav-label">Şirket Yorum Ekleme</span>  </a>
+                <a asp-controller="" asp-action=""><i class="fa fa-pie-chart"></i> <span class="nav-label">Şirket Yorum Ekleme</span>  </a>
             </li>
            
            @* <li>

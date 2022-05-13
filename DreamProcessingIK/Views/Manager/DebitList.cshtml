@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Entities.Concrete.Debit>
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Manager.cshtml";
 }
 
 <!DOCTYPE html>
@@ -12,9 +12,9 @@
     <title>DebitList</title>
 </head>
 <body>
-<p>
+@*<p>
     <a asp-action="CreateDebit">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
