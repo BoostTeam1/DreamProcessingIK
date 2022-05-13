@@ -50,25 +50,7 @@ namespace DreamProcessingIK.Controllers
                      Title = u.FirstName.ToUpper() + " " + u.LastName.ToUpper() + " " + v.Name
                  }
             ).ToList();
-            //foreach (var item in Events)
-            //{
-            //    if (item.Title.Contains("Bayram"))
-            //    {
-            //        item.Color = "#CCFFFF";
-            //        item.TextColor = "#FFFFCC";
-            //    }
-            //    else if (item.Title.Contains("Yılbaşı"))
-            //    {
-            //        item.Color = "#FFCCE5";
-            //        item.TextColor = "#FFCCE5";
-            //    }
-            //    else if (item.Title.Contains("Doğum Günü"))
-            //    {
-            //        item.Color = "#330000";
-            //        item.TextColor = "#330000";
-            //    }
-            //}
-            //var events = _eventService.GetList();
+           
             return new JsonResult(Events);
         }
 
