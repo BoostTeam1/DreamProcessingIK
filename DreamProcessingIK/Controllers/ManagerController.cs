@@ -24,8 +24,15 @@ namespace DreamProcessingIK.Controllers
         private readonly IUserDebitService _userDebitService;
         private readonly IDebitService _debitService;
         private readonly ICategoryService _categoryService;
-        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService)
+        private readonly IShiftService _shiftService;
+        private readonly IBreakService _breakService;
+        private readonly IUserShiftBreakService _userShiftBreakService;
+        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService,IShiftService shiftService,IBreakService breakService,IUserShiftBreakService userShiftBreakService)
         {
+            _userShiftBreakService = userShiftBreakService;
+            _breakService = breakService;
+
+            _shiftService = shiftService;
             _categoryService = categoryService;
             _debitService = debitService;
             _userDebitService = userDebitService;
@@ -438,6 +445,89 @@ namespace DreamProcessingIK.Controllers
             _debitService.Add(debit);
             return View();
         }
+
+        public IActionResult CreateShift()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateShift(Shift shift)
+        {
+            _shiftService.Add(shift);
+            return View();
+        }
+        public IActionResult CreateBreak()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateBreak(Break breaks)
+        {
+            _breakService.Add(breaks);
+            
+            return View();
+        }
+        public IActionResult ListBreakShift()
+        {
+            AppUser user = new AppUser();
+            AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
+
+            var result = (from x in _userShiftBreakService.GetList().ToList()
+                          join u in _userManager.Users.ToList() on x.UserId equals u.Id
+                          join b in _breakService.GetList().ToList() on x.BreakId equals b.Id
+                          join s in _shiftService.GetList().ToList() on x.ShiftId equals s.Id
+                          select new
+                          {
+                              UserId=u.Id,
+                              Fullname = u.FirstName + " " + u.LastName,
+                              BreaksId = b.Id,
+                              BreaksName = b.Name,
+                              s.Id,
+                              s.Name,
+                              s.StartDate,
+                              s.EndDate,
+                              BreaksStart=b.StartDate,
+                              BreaksEnd=b.EndDate,
+                              x.ManagerApprovedId
+
+
+
+                          }).ToList();
+            List<BreakShiftListDto> list = new List<BreakShiftListDto>();
+            //Dictionary<int, string> breaksList = new Dictionary<int, string>();
+            //Dictionary<int, string> shiftList = new Dictionary<int, string>();
+            foreach (var item in result)
+            {
+                if (item.ManagerApprovedId==usera.Id)
+                {
+                    list.Add(new BreakShiftListDto()
+                    {
+                        UserId = item.UserId,
+                        FullName= item.Fullname,
+                        ShiftName=item.Name,
+                        BreaksName=item.Name,
+                        BreakStartDate= (System.DateTime)item.BreaksStart,
+                        BreakEndDate= (System.DateTime)item.BreaksEnd,
+                        ShiftStartDate= (System.DateTime)item.StartDate,
+                        ShiftEndDate= (System.DateTime)item.EndDate,
+
+                        
+                        
+                      
+                    });
+                    //breaksList.Add(item.BreaksId, item.BreaksName);
+                    //shiftList.Add(item.Id, item.Name);
+             
+                }
+
+            }
+            //ViewBag.breaksSelect = new SelectList(breaksList, "Key", "Value");
+            //ViewBag.shiftSelect = new SelectList(shiftList, "Key", "Value");
+
+ 
+            return View(list);
+        }
+
 
 
 

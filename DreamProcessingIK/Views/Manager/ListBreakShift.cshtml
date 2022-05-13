@@ -1,0 +1,43 @@
+﻿@model List<BreakShiftListDto>
+<table class="table table-bordered table-striped">
+    <tr>
+
+     <th>İsim Soyisim</th>
+     <th>Vardiya</th>
+     <th>Vardiya Başlangıç Zamanı</th>
+     <th>Vardiya Bitiş Zamanı</th>
+
+     <th>Mola</th>
+     <th>Mola Başlangıç Zamanı</th>
+     <th>Mola Bitiş Zamanı</th>
+
+
+
+    </tr>
+    @if (Model.Count() == 0)
+    {
+            <tr>
+                <td colspan=3>Hiç bir üye yoktur</td>
+            </tr>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+                   <tr>
+                       <td>@item.FullName</td>
+                       <td>@item.ShiftName</td>
+                       <td>@item.ShiftStartDate</td>
+                       <td>@item.ShiftEndDate</td>
+                       <td>@item.BreaksName</td>
+                       <td>@item.BreakStartDate</td>
+                       <td>@item.BreakEndDate</td>
+                          <td>
+            <a href="#" type="sumbit" class="btn btn-success"> Mola Ekle</a>
+        </td>
+
+                   </tr>
+        }
+    }
+</table>
+
