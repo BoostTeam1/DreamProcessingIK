@@ -3,9 +3,9 @@
     Layout = "~/Views/Shared/_Manager.cshtml";
 }
 
-<form asp-controller="Manager"  asp-action="AddPersonnelDocument"  method="post">
+<form asp-controller="Manager"  asp-action="UpdatePersonnelDocument"  method="post">
                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-               <div class="form-group first">
+                <div class="form-group first">
                     <label asp-for="FileName">Dosya Adı:</label>
                     <input asp-for="FileName" class="form-control" type="text" > 
                     <span asp-validation-for="FileName" class="text-danger"></span>
@@ -21,5 +21,5 @@
                 <span asp-validation-for="FileGeneratedDate" class="text-danger"></span>
               </div>
               <input type="submit" value="Kaydet" class="btn btn-block btn-primary">
-
 </form>
+

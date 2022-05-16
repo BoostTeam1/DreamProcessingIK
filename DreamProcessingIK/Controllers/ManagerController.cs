@@ -570,6 +570,25 @@ namespace DreamProcessingIK.Controllers
             }
         }
 
+        public IActionResult PersonnelDocumentList()
+        {
+            List<PersonnelDocumentListDto> documentList = new List<PersonnelDocumentListDto>(); 
+            foreach (var item in _personnelDocumentService.GetList())
+            {
+                AppUser appUser = _userManager.FindByIdAsync(item.AppUserId).Result;
+                PersonnelDocumentListDto document = new PersonnelDocumentListDto();
+                document.DocumentId = item.Id;
+                document.FirstName = appUser.FirstName;
+                document.LastName = appUser.LastName;
+                document.FileName = item.FileName;
+                document.FileDetails = item.FileDetails;
+                document.FileGeneratedDate = item.FileGeneratedDate;
+                documentList.Add(document);    
+            }
+            return View(documentList);
+        }
+
+
         public IActionResult AddPersonnelDocument(string id)
         {
                    
@@ -584,10 +603,10 @@ namespace DreamProcessingIK.Controllers
             _personnelDocumentService.Add(personelDocument);
             return View();
         }
-        public IActionResult UpdatePersonnelDocument(string id)
+        public IActionResult UpdatePersonnelDocument(int id)
         {
-            TempData["userId"] = id;
-            return View();
+            TempData["userId"] = _personnelDocumentService.GetById(id).AppUserId;
+            return View(_personnelDocumentService.GetById(id));
         }
         [HttpPost]
         public IActionResult UpdatePersonnelDocument(PersonnelDocuments personelDocument)

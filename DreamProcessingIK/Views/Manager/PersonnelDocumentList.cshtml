@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Entities.Dtos.PersonnelDocumentListDto>
+
+@{
+    ViewData["Title"] = "PersonnelDocumentList";
+}
+
+<h1>PersonnelDocumentList</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileDetails)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileGeneratedDate)
+            </th>
+             <th>
+                
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileGeneratedDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "UpdatePersonnelDocument", new { item.DocumentId }) |
+                @Html.ActionLink("Delete", "DeletePersonnelDocument", new { item.DocumentId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
