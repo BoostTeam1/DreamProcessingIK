@@ -42,6 +42,7 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public virtual DbSet<Sector> Sectors { get; set; }
       
         public virtual DbSet<CompanySectorDto> CompanySectorDtos { get; set; }
+        public virtual DbSet<PersonelDocuments> PersonelDocuments { get; set; }
     }
 
 

@@ -17,5 +17,6 @@ namespace Entities.Concrete
         public string BirthPlace { get; set; }
         public string Comment { get; set; }
         public bool IsManagerActive { get; set; }
+        public virtual List<PersonelDocuments> PersonelDocuments { get; set; }
     }
 }
