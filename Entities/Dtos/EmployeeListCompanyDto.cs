@@ -12,6 +12,7 @@ public class EmployeeListCompanyDto
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public bool IsConfirmed { get; set; }
 
     }
 }

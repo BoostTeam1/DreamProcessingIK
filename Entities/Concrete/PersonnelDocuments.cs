@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class PersonelDocuments : BaseEntity
+    public class PersonnelDocuments : BaseEntity
     {
         [Required]
         [ForeignKey("AppUser")]

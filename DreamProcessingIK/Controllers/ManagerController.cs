@@ -54,83 +54,9 @@ namespace DreamProcessingIK.Controllers
 
 
 
-        [HttpGet]
-        public IActionResult UserEdit()
-        {
-            AppUser appUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
-            UserEditDto user = appUser.Adapt<UserEditDto>();
-            return View(user);
-        }
-        [HttpPost]
-        public async Task<IActionResult> UserEdit(UserEditDto userEditDto)
-        {
-            ModelState.Remove("Password");
-            //ModelState.Remove(userEditDto.Password);
-            if (ModelState.IsValid)
-            {
-                AppUser appUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
-                appUser.UserName = userEditDto.UserName;
-                appUser.FirstName = userEditDto.FirstName;
-                appUser.LastName = userEditDto.LastName;
-                appUser.PhoneNumber = userEditDto.PhoneNumber;
-                appUser.BirthPlace = userEditDto.BirthPlace;
-                appUser.BirthDate = userEditDto.BirthDate;
-                IdentityResult result = await _userManager.UpdateAsync(appUser);
-                if (result.Succeeded)
-                {
-                    await _userManager.UpdateSecurityStampAsync(appUser);
-                    await _signInManager.SignOutAsync();
-                    await _signInManager.SignInAsync(appUser, true);
-                    ViewBag.succeeded = "true";
-                }
-                else
-                {
-                    AddModelError(result);
-                }
-            }
-            return View(userEditDto);
-        }
+       
 
-        [HttpGet]
-        public IActionResult ChangePassword()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult ChangePassword(ChangePasswordDto changePasswordDto)
-        {
-            if (ModelState.IsValid)
-            {
-                AppUser appUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
-                if (appUser != null)
-                {
-                    bool exist = _userManager.CheckPasswordAsync(appUser, changePasswordDto.PasswordOld).Result;
-                    if (exist == true)
-                    {
-                        if (changePasswordDto.PasswordNew == changePasswordDto.PasswordConfirm)
-                        {
-                            IdentityResult result = _userManager.ChangePasswordAsync(appUser, changePasswordDto.PasswordOld, changePasswordDto.PasswordNew).Result;
-                            if (result.Succeeded)
-                            {
-                                _userManager.UpdateSecurityStampAsync(appUser);
-                                _signInManager.SignOutAsync();
-                                _signInManager.PasswordSignInAsync(appUser, changePasswordDto.PasswordNew, true, false);
-                                ViewBag.status = "Successful";
-                            }
-                            else
-                            {
-                                AddModelError(result);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Eski şifreniz yanlıştır");
-                    }
-                }
-            }
-            return View(changePasswordDto);
-        }
+        
         [HttpGet]
         public IActionResult AddEmployee()
         {
@@ -168,6 +94,108 @@ namespace DreamProcessingIK.Controllers
             }
             return View(employeeAddDto);
         }
+        public IActionResult EmployeeEdit(UserEditDto userEditDto, string id)
+        {
+            AppUser user = _userManager.FindByIdAsync(id).Result;
+            UserEditDto userEdit = user.Adapt<UserEditDto>();
+            TempData["userId"] = id;
+
+
+            return View(userEdit);
+        }
+        [HttpPost]
+        public async Task<IActionResult> EmployeeEdit(UserEditDto userEditDto)
+        {
+            ModelState.Remove("Password");
+            if (ModelState.IsValid)
+            {
+                AppUser user = _userManager.FindByIdAsync(TempData["userId"].ToString()).Result;
+                user.UserName = userEditDto.UserName;
+                user.FirstName = userEditDto.FirstName;
+                user.LastName = userEditDto.LastName;
+                user.PhoneNumber = userEditDto.PhoneNumber;
+                user.BirthPlace = userEditDto.BirthPlace;
+                user.BirthDate = userEditDto.BirthDate;
+                IdentityResult result = await _userManager.UpdateAsync(user);
+                if (result.Succeeded)
+                {
+                    await _userManager.UpdateSecurityStampAsync(user);
+
+                }
+                else
+                {
+                    AddModelError(result);
+                }
+            }
+
+            return View(userEditDto);
+        }
+        [HttpGet]
+        public IActionResult ChangePassword(string id)
+        {
+            TempData["userId"] = id;
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            if (ModelState.IsValid)
+            {
+                AppUser appUser = _userManager.FindByIdAsync(TempData["userId"].ToString()).Result;
+                if (appUser != null)
+                {
+                    bool exist = _userManager.CheckPasswordAsync(appUser, changePasswordDto.PasswordOld).Result;
+                    if (exist == true)
+                    {
+                        if (changePasswordDto.PasswordNew == changePasswordDto.PasswordConfirm)
+                        {
+                            IdentityResult result = _userManager.ChangePasswordAsync(appUser, changePasswordDto.PasswordOld, changePasswordDto.PasswordNew).Result;
+                            if (result.Succeeded)
+                            {
+                                _userManager.UpdateSecurityStampAsync(appUser);
+
+                                ViewBag.status = "Successful";
+                            }
+                            else
+                            {
+                                AddModelError(result);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Eski şifreniz yanlıştır");
+                    }
+                }
+            }
+            return View(changePasswordDto);
+        }
+
+        public async Task<IActionResult> PassiveEmployee(string id)
+        {
+            AppUser user = _userManager.FindByIdAsync(id).Result;
+
+
+            if (user.IsConfirmed == true)
+            {
+                user.IsConfirmed = false;
+
+            }
+            else if (user.IsConfirmed == false)
+            {
+                user.IsConfirmed = true;
+            }
+            IdentityResult passiveResult = await _userManager.UpdateAsync(user);
+            if (passiveResult.Succeeded)
+            {
+                await _userManager.UpdateSecurityStampAsync(user);
+
+            }
+            return RedirectToAction("CompanyEmployee", "Manager");
+
+        }
+
         [HttpGet]
         public IActionResult ApprovedVacation()
         {
@@ -344,7 +372,7 @@ namespace DreamProcessingIK.Controllers
                               x.UserId,
                               u.FirstName,
                               u.LastName,
-
+                              u.IsConfirmed,
                               x.CompanyId
 
                           }).Where(x => x.CompanyId == companyFind.CompanyId).ToList();
@@ -358,7 +386,8 @@ namespace DreamProcessingIK.Controllers
                     {
                         UserId = item.UserId,
                         FirstName = item.FirstName,
-                        LastName = item.LastName
+                        LastName = item.LastName,
+                        IsConfirmed = item.IsConfirmed
                     });
                 }
             }
@@ -540,7 +569,19 @@ namespace DreamProcessingIK.Controllers
             }
         }
 
-
+        public IActionResult AddPersonnelDocument(string id)
+        {
+                   
+            TempData["userId"] = id;
+                       
+            return View();  
+        }
+        [HttpPost]
+        public IActionResult AddPersonnelDocument(PersonnelDocuments personelDocument)
+        {
+            
+            return View();
+        }
 
     }
 }
