@@ -20,6 +20,18 @@ namespace Business.DependencyResolvers.Autofac
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<BountyManager>().As<IBountyService>();
+            builder.RegisterType<EfBountyDal>().As<IBountyDal>();
+
+            builder.RegisterType<UserBountyManager>().As<IUserBountyService>();
+            builder.RegisterType<EfUserBountyDal>().As<IUserBountyDal>();
+
+            builder.RegisterType<UserShiftManager>().As<IUserShiftService>();
+            builder.RegisterType<EfUserShiftDal>().As<IUserShiftDal>();
+
+            builder.RegisterType<PersonnelDocumentManager>().As<IPersonnelDocumentService>();
+            builder.RegisterType<EfPersonnelDocumentDal>().As<IPersonnelDocumentDal>();
+
             builder.RegisterType<EventManager>().As<IEventService>();
             builder.RegisterType<EfEventDal>().As<IEventDal>();
 
@@ -63,6 +75,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserDebitManager>().As<IUserDebitService>();
             builder.RegisterType<EfUserShiftBreakDal>().As<IUserShiftBreakDal>();
             builder.RegisterType<UserShiftBreakManager>().As<IUserShiftBreakService>();
+
 
             //builder.RegisterType<UserManager<AppUser>>().As<IDisposable>();
 

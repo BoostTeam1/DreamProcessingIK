@@ -27,7 +27,8 @@ namespace DreamProcessingIK.Controllers
         private readonly IShiftService _shiftService;
         private readonly IBreakService _breakService;
         private readonly IUserShiftBreakService _userShiftBreakService;
-        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService,IShiftService shiftService,IBreakService breakService,IUserShiftBreakService userShiftBreakService)
+        private readonly IPersonnelDocumentService _personnelDocumentService;
+        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService,IShiftService shiftService,IBreakService breakService,IUserShiftBreakService userShiftBreakService, IPersonnelDocumentService personnelDocumentService)
         {
             _userShiftBreakService = userShiftBreakService;
             _breakService = breakService;
@@ -43,7 +44,7 @@ namespace DreamProcessingIK.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
             _vacationService = vacationService;
-
+            _personnelDocumentService = personnelDocumentService;
         }
 
 
@@ -579,8 +580,22 @@ namespace DreamProcessingIK.Controllers
         [HttpPost]
         public IActionResult AddPersonnelDocument(PersonnelDocuments personelDocument)
         {
-            
+            personelDocument.AppUserId = TempData["userId"].ToString();
+            _personnelDocumentService.Add(personelDocument);
             return View();
+        }
+        public IActionResult UpdatePersonnelDocument(string id)
+        {
+            TempData["userId"] = id;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult UpdatePersonnelDocument(PersonnelDocuments personelDocument)
+        {
+            personelDocument.AppUserId = TempData["userId"].ToString();
+            _personnelDocumentService.Update(personelDocument);
+            return View();
+            
         }
 
     }
