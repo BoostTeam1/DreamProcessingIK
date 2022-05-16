@@ -605,16 +605,22 @@ namespace DreamProcessingIK.Controllers
         }
         public IActionResult UpdatePersonnelDocument(int id)
         {
+            TempData["documentId"] = id;
             TempData["userId"] = _personnelDocumentService.GetById(id).AppUserId;
             return View(_personnelDocumentService.GetById(id));
         }
         [HttpPost]
         public IActionResult UpdatePersonnelDocument(PersonnelDocuments personelDocument)
         {
+            personelDocument.Id = (int)TempData["documentId"];
             personelDocument.AppUserId = TempData["userId"].ToString();
             _personnelDocumentService.Update(personelDocument);
-            return View();
-            
+            return RedirectToAction("PersonnelDocumentList", "Manager");
+        }
+        public IActionResult DeletePersonnelDocument(int id)
+        {
+            _personnelDocumentService.Delete(_personnelDocumentService.GetById(id));
+            return RedirectToAction("PersonnelDocumentList", "Manager");
         }
 
     }

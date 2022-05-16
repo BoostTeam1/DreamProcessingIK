@@ -52,8 +52,8 @@
                 @Html.DisplayFor(modelItem => item.FileGeneratedDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "UpdatePersonnelDocument", new { item.DocumentId }) |
-                @Html.ActionLink("Delete", "DeletePersonnelDocument", new { item.DocumentId })
+                <a href="/Manager/UpdatePersonnelDocument?id=@item.DocumentId" type="sumbit" class="btn btn-success"> Özlük Belgesini Düzenle</a> |
+                <a href="/Manager/DeletePersonnelDocument?id=@item.DocumentId" type="sumbit" class="btn btn-danger"> Özlük Belgesini Sil</a> 
             </td>
         </tr>
 }
