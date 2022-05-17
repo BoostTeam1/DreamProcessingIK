@@ -34,7 +34,7 @@
                <td>@item.BreakStartDate.ToString("HH:mm")</td>
                <td>@item.BreakEndDate.ToString("HH:mm")</td>
                <td><a href="#" class="view" data-target="/Manager/AddShiftEmployee/@item.UserId"> Vardiya Ekle</a></td>
-               <td><a href="#" class="viewa" data-target="/Manager/AddBreakEmployee/@item.UserId"> Mola Ekle</a></td>
+               <td><a href="#" class="viewb" data-target="/Manager/AddBreakEmployee/@item.UserId"> Mola Ekle</a></td>
      
 
 
@@ -51,7 +51,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Saat Ekle</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -66,33 +66,11 @@
   </div>
 </div>
 
-@*<div class="modal fade" id="modelViewa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-bodya">
-        ...
-      </div>
-      <div class="modal-footer">
-   
-      </div>
-    </div>
-  </div>
-</div>
-*@
 <script>
-
-
-
-        $(function () {
+    $(function () {
         // a tagimizde bulunan .view classımıza click olduğunda
       
-        $("body").on("click", ".viewa", function () {
+        $("body").on("click", ".viewb", function () {
             //data-target dan url mizi al
             var url = $(this).data("target");
             //bu urlimizi post et
@@ -124,7 +102,10 @@
             })
 
         });
-    })</script>
+    })
+
+</script>
+
 
 
 

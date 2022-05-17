@@ -98,21 +98,21 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                            if (item.End < DateTime.Now)
+                                            if (item.Birthday < DateTime.Now)
                                             {
-                                                <tr class="text-danger">
+                                                <tr class="text-primary">
                                                     <td>@item.CompanyName</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.Start</td>
+                                                    <td>@item.Birthday</td>
                                                   
                                                 </tr>
-                                            }
-                                            else if (item.End.AddDays(2) < DateTime.Now)
+                                            } 
+                                           else if (item.Birthday.AddDays(-2) <= DateTime.Now)
                                             {
-                                                <tr class="text-warning">
+                                                    <tr class="text-warning">
                                                     <td>@item.CompanyName</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.Start</td>
+                                                    <td>@item.Birthday</td>
                                                     
                                                 </tr>
                                             }
@@ -121,7 +121,7 @@
                                                 <tr>
                                                     <td>@item.CompanyName</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.Start</td>
+                                                    <td>@item.Birthday</td>
                                                     
                                                 </tr>
                                             }

@@ -711,7 +711,7 @@ namespace DreamProcessingIK.Controllers
         public IActionResult AddShiftEmployee(AddShiftEmployeeDto addShiftEmployeeDto)
         {
 
-            var res = addShiftEmployeeDto.HourTime;
+
       
             var usershift = _userShiftService.GetByUserId(TempData["userId"].ToString());
             var userFind = _userManager.FindByIdAsync(TempData["userId"].ToString());
@@ -731,13 +731,38 @@ namespace DreamProcessingIK.Controllers
         [HttpGet]
         public IActionResult AddBreakEmployee(string id)
         {
+            TempData["userBreakId"] = id;
+            Dictionary<int, string> saatler = new Dictionary<int, string>();
+            if (saatler.Count == 0)
+            {
+                saatler.Add(1, "1 saat");
+                saatler.Add(2, "2 saat");
+                saatler.Add(3, "3 saat");
+                saatler.Add(4, "4 saat");
+
+                ViewBag.Paket = new SelectList(saatler, "Key", "Value");
+            }
             return View();
         }
-   
-        //public IActionResult AddBreakEmployee(
-        //{
-        //    return View();
-        //}
+
+        public IActionResult AddBreakEmployee(AddBreakEmployeeDto addBreakEmployeeDto)
+        {
+
+
+            var userShiftbreak = _userShiftBreakService.GetByUserId(TempData["userBreakId"].ToString());
+            var userFind = _userManager.FindByIdAsync(TempData["userBreakId"].ToString());
+            var result = (from x in _breakService.GetList().ToList()
+                          join s in _userShiftBreakService.GetList().ToList() on x.Id equals s.BreakId
+                          select new
+                          {
+                              s.UserId,
+                              x.EndDate
+                          }).Where(x => x.UserId == TempData["userBreakId"].ToString()).ToList();
+            Break breaks = _breakService.GetById(userShiftbreak.Id);
+            breaks.EndDate = breaks.EndDate.Value.AddHours(addBreakEmployeeDto.HourTime);
+            _breakService.Update(breaks);
+            return RedirectToAction("ListEmployeeCompany", "Manager");
+        }
 
 
 

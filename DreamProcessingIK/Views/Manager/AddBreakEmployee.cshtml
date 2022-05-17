@@ -1,15 +1,17 @@
-﻿
+﻿@model AddBreakEmployeeDto
 @{
     Layout = null;
 }
 
-<!DOCTYPE html>
+  <form asp-action="AddBreakEmployee" asp-controller="Manager" method="post">
+   
+             <div class="form-group">
+                <label asp-for="HourTime" class="control-label"></label>
+                <select asp-for="HourTime"  class="form-control" asp-items="ViewBag.Paket"></select>
+               
+                <input type="submit" value="Kaydet" class="btn btn-success" />
+   
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>AddBreakEmployee</title>
-</head>
-<body>
-</body>
-</html>
+            </div>
+    </form>
+

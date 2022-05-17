@@ -12,5 +12,7 @@ namespace Entities.Dtos
         public DateTime End { get; set; }
         public string CompanyName { get; set; }
         public string Name { get; set; }
+        public int CompanyId { get; set; }
+        public DateTime Birthday { get; set; }
     }
 }
