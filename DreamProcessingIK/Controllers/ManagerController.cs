@@ -6,6 +6,7 @@ using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,8 +29,10 @@ namespace DreamProcessingIK.Controllers
         private readonly IBreakService _breakService;
         private readonly IUserShiftBreakService _userShiftBreakService;
         private readonly IPersonnelDocumentService _personnelDocumentService;
-        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService,IShiftService shiftService,IBreakService breakService,IUserShiftBreakService userShiftBreakService, IPersonnelDocumentService personnelDocumentService)
+        private readonly IUserShiftService _userShiftService;
+        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService,IShiftService shiftService,IBreakService breakService,IUserShiftBreakService userShiftBreakService, IPersonnelDocumentService personnelDocumentService,IUserShiftService userShiftService)
         {
+            _userShiftService = userShiftService;
             _userShiftBreakService = userShiftBreakService;
             _breakService = breakService;
 
@@ -622,6 +625,104 @@ namespace DreamProcessingIK.Controllers
             _personnelDocumentService.Delete(_personnelDocumentService.GetById(id));
             return RedirectToAction("PersonnelDocumentList", "Manager");
         }
+        public IActionResult ListEmployeeCompany()
+        {
+            AppUser user = new AppUser();
+            AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
+
+            var companyFind = _userCompanyService.GetByUserId(usera.Id);
+
+
+
+            var companyList = _userCompanyService.GetList();
+            var result = (from x in companyList.ToList()
+                          join u in _userManager.Users.ToList() on x.UserId equals u.Id
+                          join s in _userShiftService.GetList().ToList() on x.UserId equals s.UserId
+                          join h in _shiftService.GetList().ToList() on s.ShiftId equals h.Id
+                          join sb in _userShiftBreakService.GetList().ToList() on u.Id equals sb.UserId
+                          join b in _breakService.GetList().ToList() on sb.BreakId equals b.Id
+                          select new
+                          {
+                              x.UserId,
+                              u.FirstName,
+                              u.LastName,
+                              u.IsConfirmed,
+                              x.CompanyId,
+                              s.ShiftId,
+                              shiftStartDate = h.StartDate,
+                              shiftEndDate = h.EndDate,
+                              sb.BreakId,
+                              breakStartDate = b.StartDate,
+                              breakEndDate = b.EndDate
+
+
+
+                          }).Where(x => x.CompanyId == companyFind.CompanyId && x.IsConfirmed == true).ToList();
+            List<EmployeeListForShiftDto> employeeLists = new List<EmployeeListForShiftDto>();
+
+            foreach (var item in result)
+            {
+
+                if (usera.Id != item.UserId)
+                {
+                    employeeLists.Add(new EmployeeListForShiftDto()
+                    {
+                        UserId = item.UserId,
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                        ShiftStartDate = (System.DateTime)item.shiftStartDate,
+                        ShiftEndDate = (System.DateTime)item.shiftEndDate,
+                        BreakStartDate = (System.DateTime)item.breakStartDate,
+                        BreakEndDate = (System.DateTime)item.breakEndDate
+
+                    });
+
+                }
+            }
+
+
+            return View(employeeLists);
+        }
+        [HttpGet]
+        public IActionResult AddShiftEmployee(string id)
+        {
+            TempData["userId"] = id;
+            Dictionary<int, string> saatler = new Dictionary<int, string>();
+            if (saatler.Count == 0)
+            {
+                saatler.Add(1, "1 saat");
+                saatler.Add(2, "2 saat");
+                saatler.Add(3, "3 saat");
+                saatler.Add(4, "4 saat");
+
+                ViewBag.Paket = new SelectList(saatler, "Key", "Value");
+            }
+
+            return View();
+
+        }
+
+        [HttpPost]
+        public IActionResult AddShiftEmployee(AddShiftEmployeeDto addShiftEmployeeDto)
+        {
+
+            var res = addShiftEmployeeDto.HourTime;
+      
+            var usershift = _userShiftService.GetByUserId(TempData["userId"].ToString());
+            var userFind = _userManager.FindByIdAsync(TempData["userId"].ToString());
+            var result = (from x in _shiftService.GetList().ToList()
+                          join s in _userShiftService.GetList().ToList() on x.Id equals s.ShiftId
+                          select new
+                          {
+                              s.UserId,
+                              x.EndDate
+                          }).Where(x => x.UserId == TempData["userId"].ToString()).ToList();
+
+
+            return RedirectToAction("ListEmployeeCompany", "Manager");
+        }
+
+
 
     }
 }

@@ -77,6 +77,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserShiftBreakManager>().As<IUserShiftBreakService>();
 
 
+
             //builder.RegisterType<UserManager<AppUser>>().As<IDisposable>();
 
 

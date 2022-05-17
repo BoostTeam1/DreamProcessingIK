@@ -43,7 +43,7 @@ namespace Business.Concrete
 
         public List<UserShiftDto> GetList()
         {
-           return  _userShiftDal.GetList().Result.ToList();
+            return _userShiftDal.GetList().Result.ToList();
         }
 
         public void Update(UserShiftDto userShiftDto)

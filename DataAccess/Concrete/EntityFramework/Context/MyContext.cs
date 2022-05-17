@@ -40,7 +40,8 @@ namespace DataAccess.Concrete.EntityFramework.Context
 
         public virtual DbSet<UserShiftBreakDto> UserShiftBreakDtos { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
-      
+        public virtual DbSet<UserShiftDto> UserShiftDtos { get; set; }
+
         public virtual DbSet<CompanySectorDto> CompanySectorDtos { get; set; }
         public virtual DbSet<PersonnelDocuments> PersonelDocuments { get; set; }
     }
