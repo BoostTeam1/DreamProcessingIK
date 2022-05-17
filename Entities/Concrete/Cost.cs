@@ -15,7 +15,7 @@ namespace Entities.Concrete
         }
         public string Name { get; set; }
         public  short? CostPrice { get; set; }
-        public short? WagePerHour { get; set; } //shift
+        //public short? WagePerHour { get; set; } //shift
         public string Image { get; set; }
         public bool? IsConfirmed { get; set; }
 

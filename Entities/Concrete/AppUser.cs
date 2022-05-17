@@ -17,6 +17,7 @@ namespace Entities.Concrete
         public string BirthPlace { get; set; }
         public string Comment { get; set; }
         public bool IsManagerActive { get; set; }
+        public short? ConstantSalary { get; set; }
         public virtual List<PersonnelDocuments> PersonelDocuments { get; set; }
     }
 }
