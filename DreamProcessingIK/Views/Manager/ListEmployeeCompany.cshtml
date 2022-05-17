@@ -33,7 +33,8 @@
                <td>@item.ShiftEndDate.ToString("HH:mm")</td>
                <td>@item.BreakStartDate.ToString("HH:mm")</td>
                <td>@item.BreakEndDate.ToString("HH:mm")</td>
-               <td><a href="#" class="view" data-target="/Manager/AddShiftEmployee/@item.UserId"> View</a></td>
+               <td><a href="#" class="view" data-target="/Manager/AddShiftEmployee/@item.UserId"> Vardiya Ekle</a></td>
+               <td><a href="#" class="viewa" data-target="/Manager/AddBreakEmployee/@item.UserId"> Mola Ekle</a></td>
      
 
 
@@ -65,9 +66,72 @@
   </div>
 </div>
 
+@*<div class="modal fade" id="modelViewa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-bodya">
+        ...
+      </div>
+      <div class="modal-footer">
+   
+      </div>
+    </div>
+  </div>
+</div>
+*@
+<script>
+
+
+
+        $(function () {
+        // a tagimizde bulunan .view classımıza click olduğunda
+      
+        $("body").on("click", ".viewa", function () {
+            //data-target dan url mizi al
+            var url = $(this).data("target");
+            //bu urlimizi post et
+            $.get(url, function (data) { })
+                //eğer işlemimiz başarılı bir şekilde gerçekleşirse
+            .done(function (data) {
+                //gelen datayı .modal-body mizin içerise html olarak ekle
+                $("#modelView .modal-body").html(data);
+                //sonra da modalimizi göster
+                $("#modelView").modal("show");
+          
+            })
+                $("body").on("click", "save", function () {
+            //data-target dan url mizi al
+            var url = $(this).data("target");
+            //bu urlimizi post et
+            $.post(url, function (data) { })
+                //eğer işlemimiz başarılı bir şekilde gerçekleşirse
+       
+          
+            })
+
+                //eğer işlem başarısız olursa
+            .fail(function () {
+                //modalımızın bodysine Error! yaz
+                $("#modelView .modal-body").text("Error!!");
+                //sonra da modalimizi göster
+                $("#modelView").modal("show");
+            })
+
+        });
+    })</script>
+
+
+
 <script>
     $(function () {
         // a tagimizde bulunan .view classımıza click olduğunda
+      
         $("body").on("click", ".view", function () {
             //data-target dan url mizi al
             var url = $(this).data("target");
@@ -101,4 +165,5 @@
 
         });
     })
+
 </script>

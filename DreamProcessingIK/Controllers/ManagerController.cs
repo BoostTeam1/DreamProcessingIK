@@ -728,6 +728,19 @@ namespace DreamProcessingIK.Controllers
 
             return RedirectToAction("ListEmployeeCompany", "Manager");
         }
+        [HttpGet]
+        public IActionResult AddBreakEmployee(string id)
+        {
+            return View();
+        }
+   
+        //public IActionResult AddBreakEmployee(
+        //{
+        //    return View();
+        //}
+
+
+
         public IActionResult _ManagerDashboard()
         {
             return View();
