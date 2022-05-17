@@ -19,5 +19,6 @@ namespace Entities.Concrete
         public virtual Debit Debit { get; set; }
         public virtual AppUser User { get; set; }
         public virtual Category Category { get; set; }
+
     }
 }

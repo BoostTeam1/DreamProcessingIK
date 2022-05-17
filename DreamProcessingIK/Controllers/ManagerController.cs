@@ -48,6 +48,8 @@ namespace DreamProcessingIK.Controllers
             _userManager = userManager;
             _vacationService = vacationService;
             _personnelDocumentService = personnelDocumentService;
+
+            UpdateShiftDates(); //düzenlenebilir
         }
 
 
@@ -56,7 +58,22 @@ namespace DreamProcessingIK.Controllers
             return View();
         }
 
-
+        public void UpdateShiftDates()
+        {
+            List<Shift> result = _shiftService.GetList();
+            foreach (var item in result)
+            {
+                int startTime, endTime;
+                startTime = Convert.ToInt32(item.StartDate.Value.ToString("HH"));
+                endTime = Convert.ToInt32(item.EndDate.Value.ToString("HH"));
+                Shift shift = _shiftService.GetById(item.Id);
+                var startDate = DateTime.Now.Date.Add(new TimeSpan(startTime, 0, 0));
+                var endDate = DateTime.Now.Date.Add(new TimeSpan(endTime, 0, 0));
+                shift.StartDate = startDate;
+                shift.EndDate = endDate;
+                _shiftService.Update(shift);
+            }
+        }
 
        
 
@@ -406,16 +423,7 @@ namespace DreamProcessingIK.Controllers
         {
             TempData["userId"] = id;
 
-            //var result = (from x in _debitService.GetList().ToList()
-            //              join c in _categoryService.GetList().ToList() on x.CategoryId equals c.Id
-            //              select new
-            //              {
-            //                  x.Id,
-            //                  x.ProductName,
-            //                  x.ProductDetail,
-            //                  x.CategoryId,
-            //                  x.Category.CategoryName
-            //              }).ToList();
+            
 
             var debit = _debitService.GetList().ToList();
             var category = _categoryService.GetList().ToList();
@@ -452,7 +460,7 @@ namespace DreamProcessingIK.Controllers
 
 
             userdebitdto.StartDate = requestDebitVmDto.StartDate;
-            userdebitdto.EndDate = requestDebitVmDto.EndDate;
+            userdebitdto.EndDate = userdebitdto.StartDate.Value.AddYears(1);
             userdebitdto.DebitId = requestDebitVmDto.DebitId;
             userdebitdto.IsReceived = false;
             userdebitdto.UserId = user.Id;
@@ -505,6 +513,7 @@ namespace DreamProcessingIK.Controllers
             AppUser user = new AppUser();
             AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
 
+
             var result = (from x in _userShiftBreakService.GetList().ToList()
                           join u in _userManager.Users.ToList() on x.UserId equals u.Id
                           join b in _breakService.GetList().ToList() on x.BreakId equals b.Id
@@ -512,6 +521,7 @@ namespace DreamProcessingIK.Controllers
                           select new
                           {
                               UserId=u.Id,
+                              ShiftId = s.Id,
                               Fullname = u.FirstName + " " + u.LastName,
                               BreaksId = b.Id,
                               BreaksName = b.Name,
@@ -522,15 +532,14 @@ namespace DreamProcessingIK.Controllers
                               BreaksStart=b.StartDate,
                               BreaksEnd=b.EndDate,
                               x.ManagerApprovedId
-
-
-
                           }).ToList();
             List<BreakShiftListDto> list = new List<BreakShiftListDto>();
             //Dictionary<int, string> breaksList = new Dictionary<int, string>();
             //Dictionary<int, string> shiftList = new Dictionary<int, string>();
             foreach (var item in result)
             {
+                
+
                 if (item.ManagerApprovedId==usera.Id)
                 {
                     list.Add(new BreakShiftListDto()
@@ -543,10 +552,6 @@ namespace DreamProcessingIK.Controllers
                         BreakEndDate= (System.DateTime)item.BreaksEnd,
                         ShiftStartDate= (System.DateTime)item.StartDate,
                         ShiftEndDate= (System.DateTime)item.EndDate,
-
-                        
-                        
-                      
                     });
                     //breaksList.Add(item.BreaksId, item.BreaksName);
                     //shiftList.Add(item.Id, item.Name);
@@ -717,7 +722,9 @@ namespace DreamProcessingIK.Controllers
                               s.UserId,
                               x.EndDate
                           }).Where(x => x.UserId == TempData["userId"].ToString()).ToList();
-
+            Shift shift = _shiftService.GetById(usershift.ShiftId);
+            shift.EndDate = shift.EndDate.Value.AddHours(addShiftEmployeeDto.HourTime);
+            _shiftService.Update(shift);
 
             return RedirectToAction("ListEmployeeCompany", "Manager");
         }

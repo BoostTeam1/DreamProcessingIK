@@ -14,8 +14,8 @@ namespace Entities.Concrete
             UserShiftBreakDtos = new HashSet<UserShiftBreakDto>();
         }
         public string Name { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public DateTime? StartDate { get; set; } = DateTime.Today.AddHours(8);
+        public DateTime? EndDate { get; set; } = DateTime.Today.AddHours(16);
         public virtual ICollection<UserShiftBreakDto> UserShiftBreakDtos { get; set; }
     }
 }

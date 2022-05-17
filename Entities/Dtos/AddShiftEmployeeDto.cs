@@ -13,10 +13,10 @@ namespace Entities.Dtos
         public int HourTime { get; set; }
         public string FullName { get; set; }
  
-        public void  AddHour()
-        {
-            EndDate.AddHours(HourTime);
-        }
+        //public void  AddHour()
+        //{
+        //    EndDate.AddHours(HourTime);
+        //}
             
     }
 }
