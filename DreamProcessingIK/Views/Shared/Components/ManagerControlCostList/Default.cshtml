@@ -89,10 +89,10 @@
                                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>Şirket İsmi</th>
-                                            <th>Yönetici İsmi</th>
-                                            <th>Üyelik Başlangıç Tarihi</th>
-                                            <th>Üyelik Bitiş Tarihi</th>
+                                            <th>Ödeme Adı</th>
+                                            <th>Ödeme Miktarı</th>
+                                            <th>Ödeme Açıklama</th>
+                                            <th>Ödeme Tarihi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,7 +107,7 @@
                                                     <td>@item.End</td>
                                                 </tr>
                                             }
-                                            else if (item.End.AddDays(30) < DateTime.Now)
+                                            else if (item.End.AddDays(10) < DateTime.Now)
                                             {
                                                 <tr class="text-warning">
                                                     <td>@item.CompanyName</td>

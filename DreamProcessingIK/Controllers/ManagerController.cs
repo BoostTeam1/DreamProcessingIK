@@ -582,6 +582,16 @@ namespace DreamProcessingIK.Controllers
             
             return View();
         }
+        public IActionResult _ManagerDashboard()
+        {
+            return View();
+        }
+
+        public IActionResult Chart()
+        {
+            return View();
+        }
+
 
     }
 }

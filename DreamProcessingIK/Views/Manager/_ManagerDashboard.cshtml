@@ -1,6 +1,6 @@
 ﻿
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Manager.cshtml";
 }
 
 
@@ -73,7 +73,25 @@
               <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
                <!--Company Date List Start-->
-               <!--FİRMALARIN TARİHLERİNE GÖRE SIRALAMASI OLACAK OLAN LİST SAYFASI-->
+               <!--ÖDEME SIRALAMASI "MANAGER cOST lİST" SIRALAMASI OLACAK OLAN LİST SAYFASI-->
+               <partial name="_CompanyDate" />
+               <!--Company Date List End-->
+
+               <!------------------------------------------------------------------------------------------------------------>
+
+               <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="row">
+               <!--Company Date List Start-->
+               <!--RESMİ TATİLLER "PUBLİC HOLİDAY" SIRALAMASI OLACAK OLAN LİST SAYFASI-->
+               <partial name="_CompanyDate" />
+               <!--Company Date List End-->
+
+               <!------------------------------------------------------------------------------------------------------------>
+
+               <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="row">
+               <!--Company Date List Start-->
+               <!--PERSONEL DOĞUM GÜNÜ "BİRTHDAY" SIRALAMASI OLACAK OLAN LİST SAYFASI-->
                <partial name="_CompanyDate" />
                <!--Company Date List End-->
 
@@ -121,7 +139,7 @@
                 <!--/ Total Revenue -->
                    
                <!------------------------------------------------------------------------------------------------------------>
-                  </div>
+                  @*</div>
                 </div>
               </div>
               <div class="row">
@@ -133,7 +151,7 @@
                       <partial name="_chart" />
                       <!--Sector Chart End -->
                   </div>
-                </div>
+                </div>*@
                 <!--/ Order Statistics -->
 
               @*  <!-- Expense Overview -->
