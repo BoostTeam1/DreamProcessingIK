@@ -636,8 +636,8 @@ namespace DreamProcessingIK.Controllers
             AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
 
             var companyFind = _userCompanyService.GetByUserId(usera.Id);
-
-
+             
+             
 
             var companyList = _userCompanyService.GetList();
             var result = (from x in companyList.ToList()
@@ -763,6 +763,32 @@ namespace DreamProcessingIK.Controllers
             _breakService.Update(breaks);
             return RedirectToAction("ListEmployeeCompany", "Manager");
         }
+          
+        public IActionResult InActiveShiftBreakEmployee(string id)
+        {
+            // buton çalışıyor ListemployeeCompany de ısactıve false dönüyor
+            var user = _userShiftBreakService.GetByUserId(id);
+            EmployeeListForShiftDto employeeListForShiftDto = new EmployeeListForShiftDto();
+            employeeListForShiftDto.ısActive = user.IsActive;
+            
+            if (employeeListForShiftDto.ısActive == true)
+            {
+                employeeListForShiftDto.ısActive = false;
+              
+            }
+            else
+            {
+                employeeListForShiftDto.ısActive = true;
+            }
+            user.IsActive = employeeListForShiftDto.ısActive;
+
+
+            _userShiftBreakService.Update(user);
+
+
+            return RedirectToAction("ListEmployeeCompany","Manager");
+        }
+        
 
 
 

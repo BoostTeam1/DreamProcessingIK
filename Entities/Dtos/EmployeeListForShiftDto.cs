@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities.Concrete;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ public class EmployeeListForShiftDto
         public DateTime ShiftEndDate { get; set; }
         public DateTime BreakStartDate { get; set; }
         public DateTime BreakEndDate { get; set; }
+        public bool ısActive { get; set; }
 
 
     }

@@ -28,11 +28,11 @@
                  <td><a href="/Manager/ChangePassword?id=@item.UserId" type="sumbit" class="btn btn-warning"> Kullanıcı Şifre Değiştir</a>   </td>
                  @if(item.IsConfirmed==true)
                 {
-                    <td><a href="/Manager/PassiveEmployee?id=@item.UserId" type="sumbit" class="btn btn-danger"> Kullanıcıyı Pasif Et</a>   </td>
+                    <td><a href="/Manager/PassiveEmployee?id=@item.UserId"  class="btn btn-danger"> Kullanıcıyı Pasif Et</a>   </td>
                 }
                 else if(item.IsConfirmed==false)
                 {
-                  <td><a href="/Manager/PassiveEmployee?id=@item.UserId" type="sumbit" class="btn btn-success"> Kullanıcı Aktif Et</a>   </td>
+                  <td><a href="/Manager/PassiveEmployee?id=@item.UserId" t class="btn btn-success"> Kullanıcı Aktif Et</a>   </td>
                 }
            </tr>
        }
