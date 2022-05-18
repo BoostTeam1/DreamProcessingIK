@@ -10,7 +10,7 @@ olarak düzenleyebilir.
 - :information_desk_person: **Şirket İşlemleri:**  Yönetici  **DreamPrcessinIk** ile siteme çalışan ekleyebilir,silebilir,güncelleyebilir. Aynı zamanda şirket yöneticisi çalışanlara izin,vardiya,mola ekleyebilir,güncelleyebilir,silebilir.
 - :pencil2:  **Çalışan İşlemleri:**  Şirket yöneticisi  **DreamPrcessinIk**  ile çalışanların izin durumunu,yaklaşan doğum günlerini görebilir. Resmi tatilleri görüntüleyip , etkinlik ekleyebilir.
 
-## 1- Kullanıcı Rolü
+## 2- Kullanıcı Rolü
 - :coffee: **Sistem İşlemleri:** Çalışan **DreamPrcessinIk** ile sisteme giriş yaptıktan sonra mola saatlerini ve vardiya saatlerini görüntüleyebilir.
 - :airplane: **İzin İşlemleri:** Çalışan **DreamPrcessinIk** aracılığı ile yöneticisinden izin talep edebilir, onay veya red alan izinlerini görüntüleyebilir. Şirket içi düzenlenen 
 etkinlikleri görebilir, katılım sağlayıp sağlamaycağını belirtebilir.
