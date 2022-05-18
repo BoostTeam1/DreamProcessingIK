@@ -2,7 +2,7 @@
 
 # DreamProcessingIK
 Bilge Adam Boost Programı kapsamında, bitirme projesi olarak yapılan ekip çalışmasıdır. İnsan Kaynakları yönetim sistemi olarak geliştirilen proje, 
-katmanlı mimari ile uygulanmış .Net Core 5 teknolojisi kullanılmıştır. Bunun yanısıra HTML5, Jquey, Ajax tekonolojileri kullanılmış ve SOLID prensiplerine uygun olarak geliştirilmiştir.
+katmanlı mimari ile geliştirilmiştir. .Net Core 5 teknolojisi kullanılmıştır. Bunun yanısıra HTML5, Jquey, Ajax tekonolojileri kullanılmış ve SOLID prensiplerine uygun olarak geliştirilmiştir.
 
 ## 1- Admin/ Yönetici Rolü
 - :house:   **Site İle İlgili İşlemler:** Yönetici  **DreamPrcessinIk** ile sisteme kayıt olan şirketleri onaylayabilir. Durumunu aktif veya pasif 
