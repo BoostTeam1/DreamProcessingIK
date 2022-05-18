@@ -37,7 +37,7 @@
     <td><a href="#" class="view" data-target="/Manager/AddShiftEmployee/@item.UserId"> Vardiya Ekle</a></td>
     <td><a href="#" class="viewb" data-target="/Manager/AddBreakEmployee/@item.UserId"> Mola Ekle</a></td>
 
-    @if (item.ısActive == false)
+    @if ((string)TempData["active"] == "false")
     {
         <td><a href="/Manager/InActiveShiftBreakEmployee/@item.UserId" class="btn btn-outline-success"> Vardiyayı Aktif Et</a></td>
     }

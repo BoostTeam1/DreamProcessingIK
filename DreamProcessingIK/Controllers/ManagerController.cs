@@ -630,14 +630,40 @@ namespace DreamProcessingIK.Controllers
             _personnelDocumentService.Delete(_personnelDocumentService.GetById(id));
             return RedirectToAction("PersonnelDocumentList", "Manager");
         }
+
+        public IActionResult InActiveShiftBreakEmployee(string id)
+        {
+            // buton çalışıyor ListemployeeCompany de ısactıve false dönüyor
+            var user = _userShiftBreakService.GetByUserId(id);
+            
+
+            if (user.IsActive == true)
+            {
+                TempData["active"] = "false";
+                user.IsActive = false;
+
+            }
+            else
+            {
+                TempData["active"] = "true";
+                user.IsActive = true;
+            }
+            
+
+
+            _userShiftBreakService.Update(user);
+
+
+            return RedirectToAction("ListEmployeeCompany", "Manager");
+        }
         public IActionResult ListEmployeeCompany()
         {
             AppUser user = new AppUser();
             AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
 
             var companyFind = _userCompanyService.GetByUserId(usera.Id);
-             
-             
+            
+
 
             var companyList = _userCompanyService.GetList();
             var result = (from x in companyList.ToList()
@@ -764,30 +790,7 @@ namespace DreamProcessingIK.Controllers
             return RedirectToAction("ListEmployeeCompany", "Manager");
         }
           
-        public IActionResult InActiveShiftBreakEmployee(string id)
-        {
-            // buton çalışıyor ListemployeeCompany de ısactıve false dönüyor
-            var user = _userShiftBreakService.GetByUserId(id);
-            EmployeeListForShiftDto employeeListForShiftDto = new EmployeeListForShiftDto();
-            employeeListForShiftDto.ısActive = user.IsActive;
-            
-            if (employeeListForShiftDto.ısActive == true)
-            {
-                employeeListForShiftDto.ısActive = false;
-              
-            }
-            else
-            {
-                employeeListForShiftDto.ısActive = true;
-            }
-            user.IsActive = employeeListForShiftDto.ısActive;
-
-
-            _userShiftBreakService.Update(user);
-
-
-            return RedirectToAction("ListEmployeeCompany","Manager");
-        }
+        
         
 
 
