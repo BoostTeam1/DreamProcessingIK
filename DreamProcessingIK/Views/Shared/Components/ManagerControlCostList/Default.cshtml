@@ -1,4 +1,4 @@
-﻿@model List<CompanyDateDto>
+﻿@model List<CompanyCostDto>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,38 +91,34 @@
                                         <tr>
                                             <th>Ödeme Adı</th>
                                             <th>Ödeme Miktarı</th>
-                                            <th>Ödeme Açıklama</th>
                                             <th>Ödeme Tarihi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                            if (item.End < DateTime.Now)
+                                            if (item.PaymentDate < DateTime.Now)
                                             {
                                                 <tr class="text-danger">
-                                                    <td>@item.CompanyName</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.Start</td>
-                                                    <td>@item.End</td>
+                                                    <td>@item.CostPrice</td>
+                                                    <td>@item.PaymentDate</td>
                                                 </tr>
                                             }
-                                            else if (item.End.AddDays(10) < DateTime.Now)
+                                            else if (item.PaymentDate.AddDays(10) < DateTime.Now)
                                             {
                                                 <tr class="text-warning">
-                                                    <td>@item.CompanyName</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.Start</td>
-                                                    <td>@item.End</td>
+                                                    <td>@item.CostPrice</td>
+                                                    <td>@item.PaymentDate</td>
                                                 </tr>
                                             }
                                             else
                                             {
                                                 <tr>
-                                                    <td>@item.CompanyName</td>
-                                                    <td>@item.Name</td>
-                                                    <td>@item.Start</td>
-                                                    <td>@item.End</td>
+                                                     <td>@item.Name</td>
+                                                    <td>@item.CostPrice</td>
+                                                    <td>@item.PaymentDate</td>
                                                 </tr>
                                             }
                                         }

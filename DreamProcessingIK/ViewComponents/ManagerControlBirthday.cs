@@ -23,39 +23,36 @@ namespace DreamProcessingIK.ViewComponents
 
         public IViewComponentResult Invoke()
         {
-            //    AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
-
-
-
-            //    var companyFind = _userCompanyService.GetByUserId(usera.Id);
+            AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            var companyFind = _userCompanyService.GetByUserId(usera.Id);
 
 
 
 
-            //   var result = (from x in _userCompanyService.GetList().ToList()
-            //                  join u in _userManager.Users.ToList() on x.UserId equals u.Id 
-            //                  select new 
-            //                  {
+            var result = (from x in _userCompanyService.GetList().Where(x => x.CompanyId == companyFind.CompanyId).ToList()
+                          join u in _userManager.Users.ToList() on x.UserId equals u.Id
+                          select new
+                          {
 
-            //                    CompanyId= (int)x.CompanyId,
-            //                    Birthday= (System.DateTime)u.BirthDate,
-            //                    Name = u.FirstName + " " + u.LastName
+                              CompanyId = (int)x.CompanyId,
+                              Birthday = (System.DateTime)u.BirthDate,
+                              Name = u.FirstName + " " + u.LastName
 
-            //                  }).ToList();
-            //    List<CompanyDateDto> company = new List<CompanyDateDto>();
-            //    foreach (var date in result)
-            //    {
-            //        company.Add(new CompanyDateDto()
-            //        {
-            //            Name = date.Name,
-            //            Birthday = date.Birthday
-            //        });
+                          }).ToList();
+            List<CompanyDateDto> company = new List<CompanyDateDto>();
+            foreach (var date in result)
+            {
+                company.Add(new CompanyDateDto()
+                {
+                    Name = date.Name,
+                    Birthday = date.Birthday
+                });
 
-            //    }
+            }
 
 
 
-            return View();
+            return View(company);
         }
 
     }

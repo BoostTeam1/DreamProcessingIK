@@ -18,6 +18,7 @@ namespace Entities.Concrete
         //public short? WagePerHour { get; set; } //shift
         public string Image { get; set; }
         public bool? IsConfirmed { get; set; }
+        public DateTime PaymentDate { get; set; }
 
         public virtual ICollection<UserCostDto> UserCostDto { get; set; }
     }

@@ -15,6 +15,7 @@ namespace Entities.Concrete
         }
         public string Name { get; set; }
         public string Color { get; set; }
+        public string Title { get; set; }
         public virtual ICollection<UserVacationDto> UserVacationDtos { get; set; }
 
     }

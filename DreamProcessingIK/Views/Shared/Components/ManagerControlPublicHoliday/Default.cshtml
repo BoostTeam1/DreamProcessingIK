@@ -1,4 +1,4 @@
-﻿@model List<CompanyDateDto>
+﻿@model List<PublicVacationsDto>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,39 +90,36 @@
                                     <thead>
                                         <tr>
                                             <th>Tatil Adı</th>
-                                            <th>Tatil Tarihi</th>
-                                            <th>Açıklama</th>
+                                            <th>Başlangıç Tarihi</th>
+                                            <th>Bitiş Tarihi</th>
                                           
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
-                                            if (item.End < DateTime.Now)
+                                            if (item.StartDate < DateTime.Now)
                                             {
                                                 <tr class="text-danger">
-                                                    <td>@item.CompanyName</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.Start</td>
-                                                   
+                                                    <td>@item.StartDate</td>
+                                                    <td>@item.EndDate</td>
                                                 </tr>
                                             }
-                                            else if (item.End.AddDays(7) < DateTime.Now)
+                                            else if (item.StartDate.Value.AddDays(7) < DateTime.Now)
                                             {
                                                 <tr class="text-warning">
-                                                    <td>@item.CompanyName</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.Start</td>
-                                                   
+                                                    <td>@item.StartDate</td>
+                                                    <td>@item.EndDate</td>
                                                 </tr>
                                             }
                                             else
                                             {
                                                 <tr>
-                                                    <td>@item.CompanyName</td>
                                                     <td>@item.Name</td>
-                                                    <td>@item.Start</td>
-                                                   
+                                                    <td>@item.StartDate</td>
+                                                    <td>@item.EndDate</td>
                                                 </tr>
                                             }
                                         }
