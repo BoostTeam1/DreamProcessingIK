@@ -40,7 +40,7 @@ namespace DreamProcessingIK
             {
                 opts.UseSqlServer(Configuration["ConnectionStrings:DefaultConnectionString"]);
             });
-
+            //
 
             services.AddIdentity<AppUser, AppRole>(opts =>
              {
