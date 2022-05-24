@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamProcessingIK", "DreamProcessingIK\DreamProcessingIK.csproj", "{A987AF17-9F0F-4C82-8DCF-1B4302C0E155}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DreamProcessingIK", "DreamProcessingIK\DreamProcessingIK.csproj", "{A987AF17-9F0F-4C82-8DCF-1B4302C0E155}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{A694E908-99C9-4ACD-8207-9C9FFC3856FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{A694E908-99C9-4ACD-8207-9C9FFC3856FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{ABF5FFF8-5948-4A2D-BD74-F67AD7F65BB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{ABF5FFF8-5948-4A2D-BD74-F67AD7F65BB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{FBB29FA0-C959-4487-AF92-3F2DE8E754B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{FBB29FA0-C959-4487-AF92-3F2DE8E754B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{423393F4-1C1F-4583-A6FA-1A10E74A749A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "Entities\Entities.csproj", "{423393F4-1C1F-4583-A6FA-1A10E74A749A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DreamIK.API", "DreamIK.API\DreamIK.API.csproj", "{6A3C6B13-B94E-4B4D-AB9A-0169D53EBC41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{423393F4-1C1F-4583-A6FA-1A10E74A749A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{423393F4-1C1F-4583-A6FA-1A10E74A749A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{423393F4-1C1F-4583-A6FA-1A10E74A749A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A3C6B13-B94E-4B4D-AB9A-0169D53EBC41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A3C6B13-B94E-4B4D-AB9A-0169D53EBC41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A3C6B13-B94E-4B4D-AB9A-0169D53EBC41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A3C6B13-B94E-4B4D-AB9A-0169D53EBC41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
