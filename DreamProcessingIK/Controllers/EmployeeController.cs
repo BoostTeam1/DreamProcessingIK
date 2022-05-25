@@ -33,9 +33,12 @@ namespace DreamProcessingIK.Controllers
         {
             return View();
         }
+        public IActionResult SendMessageAllUsers()
+        {
+            return View();
+        }
 
-    
- 
+
         [HttpGet]
         public IActionResult UserEdit()
         {

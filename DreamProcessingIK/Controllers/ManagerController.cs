@@ -51,7 +51,10 @@ namespace DreamProcessingIK.Controllers
 
             UpdateShiftDates(); //düzenlenebilir
         }
-
+        public IActionResult SendMessageAllUsers()
+        {
+            return View();
+        }
 
         public IActionResult Index()
         {

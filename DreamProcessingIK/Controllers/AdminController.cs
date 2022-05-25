@@ -50,6 +50,11 @@ namespace DreamProcessingIK.Controllers
         #region About User
 
         #endregion
+
+        public IActionResult SendMessageAllUsers()
+        {
+            return View();
+        }
         public IActionResult Users()
         {
             return View(_userManager.Users.ToList());

@@ -1,0 +1,47 @@
+﻿
+@{
+    Layout = null;
+}
+  
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="~/microsoft-signalr/signalr.js"></script>
+    <script type="text/javascript">
+        $(document).ready(() =>{
+
+            var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44339/MyHub").build();
+              $("#conStatus").text(connection.connectionState);
+
+            connection.start().then(() =>{
+
+                $("#conStatus").text(connection.connectionState);
+            }).catch((err) =>{console.log(err) });
+               $("#conStatus").text(connection.connectionState);
+            $("#btnNameSave").click(() =>{
+                connection.invoke("SendMessage",$("#message").val()).catch((err)=>
+                console.log(err))
+
+            })
+            connection.on("Receive",(name) =>{
+                console.log(name);
+            })
+            
+
+        })
+    
+    </script>
+
+
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <input class="form-control" type="text" id="message" />
+            <hr />
+            <button class="btn btn-primary" id="btnNameSave">Mesajı Gönder</button>
+            <div class="alert alert-info">
+                Bağlantı Durumu:<strong id="conStatus"></strong>
+            </div>
+
+
+        </div>
+
+
+    </div>
