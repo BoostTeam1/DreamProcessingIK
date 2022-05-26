@@ -1,9 +1,9 @@
-﻿@model PersonnelDocuments
+﻿@model PersonnelDocumentsDto
 @{
     Layout = "~/Views/Shared/_Manager.cshtml";
 }
 
-<form asp-controller="Manager"  asp-action="AddPersonnelDocument"  method="post">
+<form asp-controller="Manager"  asp-action="AddPersonnelDocument"  method="post" enctype="multipart/form-data">
                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                <div class="form-group first">
                     <label asp-for="FileName">Dosya Adı:</label>
@@ -15,9 +15,12 @@
                     <input asp-for="FileDetails" class="form-control" type="text" > 
                     <span asp-validation-for="FileDetails" class="text-danger"></span>
               </div>
+               <div class="form-group first">
+                    <input asp-for="FilePath" class="form-control" type="file" > 
+              </div>
               <div class="form-group last mb-4">
                 <label asp-for="FileGeneratedDate" class="control-label"> </label>
-                 <input asp-for="FileGeneratedDate" class="form-control" type="datetime">
+                 <input asp-for="FileGeneratedDate" class="form-control" type="date">
                 <span asp-validation-for="FileGeneratedDate" class="text-danger"></span>
               </div>
               <input type="submit" value="Kaydet" class="btn btn-block btn-primary">

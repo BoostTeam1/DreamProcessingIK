@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -265,18 +266,13 @@ namespace DreamProcessingIK.Controllers
                 {
                     vacationConfirmedDto.Add(new VacationConfirmedDto()
                     {
-
                         HolidayId = (int)item.HolidayId,
                         FullName = item.İsim,
                         UserId = item.UserId,
-                        IsConfirmed = (bool)item.OnayDurumu,
+                        IsConfirmed = item.OnayDurumu == null ? false : (bool)item.OnayDurumu,
                         Name = item.Name
-
                     });
-
-
                 }
-
             }
             return View(vacationConfirmedDto);
         }
@@ -612,10 +608,20 @@ namespace DreamProcessingIK.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddPersonnelDocument(PersonnelDocuments personelDocument)
+        public IActionResult AddPersonnelDocument(PersonnelDocumentsDto personelDocumentDto)
         {
-            personelDocument.AppUserId = TempData["userId"].ToString();
-            _personnelDocumentService.Add(personelDocument);
+            PersonnelDocuments personnelDocuments = new PersonnelDocuments() { FileName = personelDocumentDto.FileName, FileDetails = personelDocumentDto.FileDetails,FileGeneratedDate = personelDocumentDto.FileGeneratedDate };
+            if (personelDocumentDto.FileName != null)
+            {
+                var extension = Path.GetExtension(personelDocumentDto.FilePath.FileName);
+                var newFileName = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/files/", newFileName);
+                var stream = new FileStream(location, FileMode.Create);
+                personelDocumentDto.FilePath.CopyTo(stream);
+                personnelDocuments.FilePath = newFileName;
+            }
+            personnelDocuments.AppUserId = TempData["userId"].ToString();
+            _personnelDocumentService.Add(personnelDocuments);
             return View();
         }
         public IActionResult UpdatePersonnelDocument(int id)
