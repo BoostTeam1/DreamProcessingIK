@@ -817,7 +817,7 @@ namespace DreamProcessingIK.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddBounty(AddBountyDto addBountyDto)
+        public IActionResult AddBounty(AddBountyDto addBountyDto) //link bağlanacak
         {
             Bounty bounty = new Bounty();
             bounty.Amount = addBountyDto.Amount;
@@ -826,57 +826,18 @@ namespace DreamProcessingIK.Controllers
             
             return View(addBountyDto);
         }
-        public IActionResult CompanyEmployeeForBounty() //personelleri listeleme tarafı //prim için
+  
+
+        public IActionResult UserBountyList()
         {
-            AppUser user = new AppUser();
-            AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
-
-            var companyFind = _userCompanyService.GetByUserId(usera.Id);
-
-
-
-            var companyList = _userCompanyService.GetList();
-            var result = (from x in companyList.ToList()
-                          join u in _userManager.Users.ToList() on x.UserId equals u.Id
-                          select new
-                          {
-                              x.UserId,
-                              u.FirstName,
-                              u.LastName,
-                              u.IsConfirmed,
-                              x.CompanyId
-
-                          }).Where(x => x.CompanyId == companyFind.CompanyId).ToList();
-            List<EmployeeListCompanyDto> employeeLists = new List<EmployeeListCompanyDto>();
-
-            foreach (var item in result)
-            {
-                if (usera.Id != item.UserId)
-                {
-                    employeeLists.Add(new EmployeeListCompanyDto()
-                    {
-                        UserId = item.UserId,
-                        FirstName = item.FirstName,
-                        LastName = item.LastName,
-                        IsConfirmed = item.IsConfirmed
-                    });
-                }
-            }
-
-
-            return View(employeeLists);
-        }
-        public IActionResult AddUserBounty(string id)
-        {
-            var bountyType= _bountyService.GetList().ToList();
-            ViewBag.BountyType=bountyType;
+            //var bountyType= _bountyService.GetList().ToList();
+            //ViewBag.BountyType=bountyType;
 
            List<AddUserBountyDto>  addUserBounty = new List<AddUserBountyDto>();
 
-            AppUser userFind = _userManager.FindByIdAsync(id).Result;
+            //AppUser userFind = _userManager.FindByIdAsync(id).Result;
             //var result = _userBountyService
-            if (userFind is not null)
-            {
+      
                 var resultListBounty = (from u in _userManager.Users.ToList()
                                         join ub in _userBountyService.GetList().ToList() on u.Id equals ub.UserId
                                         join b in _bountyService.GetList().ToList() on ub.BountyId equals b.Id
@@ -890,7 +851,7 @@ namespace DreamProcessingIK.Controllers
                                             b.Amount,
                                             b.Description
 
-                                        }).Where(x => x.Id == id).ToList();
+                                        }).ToList();
 
                 foreach (var item in  resultListBounty)
                 {
@@ -899,17 +860,18 @@ namespace DreamProcessingIK.Controllers
                         FullName= item.FullName,
                         ConstantSalary= (short)item.ConstantSalary,
                         Amount= (decimal)item.Amount,
-                        Description= item.Description
+                        Description= item.Description,
+                        Total= (decimal)(item.ConstantSalary+item.Amount)
+
 
 
                     });
                 }
-            }
          
 
        
             
-            return View();
+            return View(addUserBounty);
 
         }
         [HttpPost]
