@@ -32,7 +32,7 @@ namespace DreamProcessingIK.Controllers
         private readonly IUserShiftService _userShiftService;
         private readonly IBountyService _bountyService;
         private readonly IUserBountyService _userBountyService;
-        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService,IShiftService shiftService,IBreakService breakService,IUserShiftBreakService userShiftBreakService, IPersonnelDocumentService personnelDocumentService,IUserShiftService userShiftService,IBountyService bountyService,IUserBountyService userBountyService)
+        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService, IShiftService shiftService, IBreakService breakService, IUserShiftBreakService userShiftBreakService, IPersonnelDocumentService personnelDocumentService, IUserShiftService userShiftService, IBountyService bountyService, IUserBountyService userBountyService)
         {
             _userBountyService = userBountyService;
             _bountyService = bountyService;
@@ -82,9 +82,9 @@ namespace DreamProcessingIK.Controllers
             }
         }
 
-       
 
-        
+
+
         [HttpGet]
         public IActionResult AddEmployee()
         {
@@ -430,7 +430,7 @@ namespace DreamProcessingIK.Controllers
         {
             TempData["userId"] = id;
 
-            
+
 
             var debit = _debitService.GetList().ToList();
             var category = _categoryService.GetList().ToList();
@@ -512,7 +512,7 @@ namespace DreamProcessingIK.Controllers
         public IActionResult CreateBreak(Break breaks)
         {
             _breakService.Add(breaks);
-            
+
             return View();
         }
         public IActionResult ListBreakShift()
@@ -527,7 +527,7 @@ namespace DreamProcessingIK.Controllers
                           join s in _shiftService.GetList().ToList() on x.ShiftId equals s.Id
                           select new
                           {
-                              UserId=u.Id,
+                              UserId = u.Id,
                               ShiftId = s.Id,
                               Fullname = u.FirstName + " " + u.LastName,
                               BreaksId = b.Id,
@@ -536,8 +536,8 @@ namespace DreamProcessingIK.Controllers
                               s.Name,
                               s.StartDate,
                               s.EndDate,
-                              BreaksStart=b.StartDate,
-                              BreaksEnd=b.EndDate,
+                              BreaksStart = b.StartDate,
+                              BreaksEnd = b.EndDate,
                               x.ManagerApprovedId
                           }).ToList();
             List<BreakShiftListDto> list = new List<BreakShiftListDto>();
@@ -545,31 +545,31 @@ namespace DreamProcessingIK.Controllers
             //Dictionary<int, string> shiftList = new Dictionary<int, string>();
             foreach (var item in result)
             {
-                
 
-                if (item.ManagerApprovedId==usera.Id)
+
+                if (item.ManagerApprovedId == usera.Id)
                 {
                     list.Add(new BreakShiftListDto()
                     {
                         UserId = item.UserId,
-                        FullName= item.Fullname,
-                        ShiftName=item.Name,
-                        BreaksName=item.Name,
-                        BreakStartDate= (System.DateTime)item.BreaksStart,
-                        BreakEndDate= (System.DateTime)item.BreaksEnd,
-                        ShiftStartDate= (System.DateTime)item.StartDate,
-                        ShiftEndDate= (System.DateTime)item.EndDate,
+                        FullName = item.Fullname,
+                        ShiftName = item.Name,
+                        BreaksName = item.Name,
+                        BreakStartDate = (System.DateTime)item.BreaksStart,
+                        BreakEndDate = (System.DateTime)item.BreaksEnd,
+                        ShiftStartDate = (System.DateTime)item.StartDate,
+                        ShiftEndDate = (System.DateTime)item.EndDate,
                     });
                     //breaksList.Add(item.BreaksId, item.BreaksName);
                     //shiftList.Add(item.Id, item.Name);
-             
+
                 }
 
             }
             //ViewBag.breaksSelect = new SelectList(breaksList, "Key", "Value");
             //ViewBag.shiftSelect = new SelectList(shiftList, "Key", "Value");
 
- 
+
             return View(list);
         }
 
@@ -587,7 +587,7 @@ namespace DreamProcessingIK.Controllers
 
         public IActionResult PersonnelDocumentList()
         {
-            List<PersonnelDocumentListDto> documentList = new List<PersonnelDocumentListDto>(); 
+            List<PersonnelDocumentListDto> documentList = new List<PersonnelDocumentListDto>();
             foreach (var item in _personnelDocumentService.GetList())
             {
                 AppUser appUser = _userManager.FindByIdAsync(item.AppUserId).Result;
@@ -598,7 +598,7 @@ namespace DreamProcessingIK.Controllers
                 document.FileName = item.FileName;
                 document.FileDetails = item.FileDetails;
                 document.FileGeneratedDate = item.FileGeneratedDate;
-                documentList.Add(document);    
+                documentList.Add(document);
             }
             return View(documentList);
         }
@@ -606,10 +606,10 @@ namespace DreamProcessingIK.Controllers
 
         public IActionResult AddPersonnelDocument(string id)
         {
-                   
+
             TempData["userId"] = id;
-                       
-            return View();  
+
+            return View();
         }
         [HttpPost]
         public IActionResult AddPersonnelDocument(PersonnelDocuments personelDocument)
@@ -642,7 +642,7 @@ namespace DreamProcessingIK.Controllers
         {
             // buton çalışıyor ListemployeeCompany de ısactıve false dönüyor
             var user = _userShiftBreakService.GetByUserId(id);
-            
+
 
             if (user.IsActive == true)
             {
@@ -655,7 +655,7 @@ namespace DreamProcessingIK.Controllers
                 TempData["active"] = "true";
                 user.IsActive = true;
             }
-            
+
 
 
             _userShiftBreakService.Update(user);
@@ -669,7 +669,7 @@ namespace DreamProcessingIK.Controllers
             AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
 
             var companyFind = _userCompanyService.GetByUserId(usera.Id);
-            
+
 
 
             var companyList = _userCompanyService.GetList();
@@ -745,7 +745,7 @@ namespace DreamProcessingIK.Controllers
         {
 
 
-      
+
             var usershift = _userShiftService.GetByUserId(TempData["userId"].ToString());
             var userFind = _userManager.FindByIdAsync(TempData["userId"].ToString());
             var result = (from x in _shiftService.GetList().ToList()
@@ -796,9 +796,9 @@ namespace DreamProcessingIK.Controllers
             _breakService.Update(breaks);
             return RedirectToAction("ListEmployeeCompany", "Manager");
         }
-          
-        
-        
+
+
+
 
 
 
@@ -811,7 +811,7 @@ namespace DreamProcessingIK.Controllers
         {
             return View();
         }
-       
+
         public IActionResult AddBounty()
         {
             return View();
@@ -823,54 +823,54 @@ namespace DreamProcessingIK.Controllers
             bounty.Amount = addBountyDto.Amount;
             bounty.Description = addBountyDto.Description;
             _bountyService.Add(bounty);
-            
+
             return View(addBountyDto);
         }
-  
+
 
         public IActionResult UserBountyList()
         {
             //var bountyType= _bountyService.GetList().ToList();
             //ViewBag.BountyType=bountyType;
 
-           List<AddUserBountyDto>  addUserBounty = new List<AddUserBountyDto>();
+            List<AddUserBountyDto> addUserBounty = new List<AddUserBountyDto>();
 
             //AppUser userFind = _userManager.FindByIdAsync(id).Result;
             //var result = _userBountyService
-      
-                var resultListBounty = (from u in _userManager.Users.ToList()
-                                        join ub in _userBountyService.GetList().ToList() on u.Id equals ub.UserId
-                                        join b in _bountyService.GetList().ToList() on ub.BountyId equals b.Id
-                                        select new
-                                        {
-                                            u.Id,
-                                            FullName = u.FirstName + " " + u.LastName,
-                                            u.ConstantSalary,
-                                            ub.BountyId,
-                                            BountyType = b.Id,
-                                            b.Amount,
-                                            b.Description
 
-                                        }).ToList();
+            var resultListBounty = (from u in _userManager.Users.ToList()
+                                    join ub in _userBountyService.GetList().ToList() on u.Id equals ub.UserId
+                                    join b in _bountyService.GetList().ToList() on ub.BountyId equals b.Id
+                                    select new
+                                    {
+                                        u.Id,
+                                        FullName = u.FirstName + " " + u.LastName,
+                                        u.ConstantSalary,
+                                        ub.BountyId,
+                                        BountyType = b.Id,
+                                        b.Amount,
+                                        b.Description
 
-                foreach (var item in  resultListBounty)
+                                    }).ToList();
+
+            foreach (var item in resultListBounty)
+            {
+                addUserBounty.Add(new AddUserBountyDto()
                 {
-                    addUserBounty.Add(new AddUserBountyDto()
-                    {
-                        FullName= item.FullName,
-                        ConstantSalary= (short)item.ConstantSalary,
-                        Amount= (decimal)item.Amount,
-                        Description= item.Description,
-                        Total= (decimal)(item.ConstantSalary+item.Amount)
+                    FullName = item.FullName,
+                    ConstantSalary = (short)item.ConstantSalary,
+                    Amount = (decimal)item.Amount,
+                    Description = item.Description,
+                    Total = (decimal)(item.ConstantSalary + item.Amount)
 
 
 
-                    });
-                }
-         
+                });
+            }
 
-       
-            
+
+
+
             return View(addUserBounty);
 
         }
@@ -889,17 +889,25 @@ namespace DreamProcessingIK.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddComment(AppUser appUser)
+        public async Task<IActionResult> AddComment(AppUser appUser)
         {
             if (appUser.Comment != null)
             {
-                _userManager.UpdateAsync(appUser);
+                string comment = appUser.Comment;
+                appUser = _userManager.GetUserAsync(User).Result;
+                appUser.Comment = comment;
+
+                IdentityResult result = await _userManager.UpdateAsync(appUser);
+                if (result.Succeeded)
+                {
+                    await _userManager.UpdateSecurityStampAsync(appUser);
+                }
                 return View();
             }
             else
             {
                 ModelState.AddModelError("", "Herhangi bir yorum girmediniz. Lütfen yorumunuzu yazınız");
-                return View();
+                return View(appUser);
             }
         }
     }
