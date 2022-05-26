@@ -30,7 +30,9 @@ namespace DataAccess.Concrete.EntityFramework.Context
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Cost> Costs { get; set; }
         public virtual DbSet<Debit> Debits { get; set; }
-      
+        public virtual DbSet<Bounty> Bounties { get; set; }
+        public virtual DbSet<UserBountyDto>  UserBountyDtos { get; set; }
+
         public virtual DbSet<Vacation> Vacations{ get; set; }
       
         public virtual DbSet<Shift> Shifts { get; set; }

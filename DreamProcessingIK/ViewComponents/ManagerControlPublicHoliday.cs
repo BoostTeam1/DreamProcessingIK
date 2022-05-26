@@ -47,6 +47,8 @@ namespace DreamProcessingIK.ViewComponents
                     EndDate = date.EndDate
                 });
             }
+
+
             return View(publicVacations);
         }
     }

@@ -30,8 +30,12 @@ namespace DreamProcessingIK.Controllers
         private readonly IUserShiftBreakService _userShiftBreakService;
         private readonly IPersonnelDocumentService _personnelDocumentService;
         private readonly IUserShiftService _userShiftService;
-        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService,IShiftService shiftService,IBreakService breakService,IUserShiftBreakService userShiftBreakService, IPersonnelDocumentService personnelDocumentService,IUserShiftService userShiftService)
+        private readonly IBountyService _bountyService;
+        private readonly IUserBountyService _userBountyService;
+        public ManagerController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IUserCompanyService userCompanyService, IUserVacationService userVacationService, IUserDebitService userDebitService, IDebitService debitService, ICategoryService categoryService, IVacationService vacationService,IShiftService shiftService,IBreakService breakService,IUserShiftBreakService userShiftBreakService, IPersonnelDocumentService personnelDocumentService,IUserShiftService userShiftService,IBountyService bountyService,IUserBountyService userBountyService)
         {
+            _userBountyService = userBountyService;
+            _bountyService = bountyService;
             _userShiftService = userShiftService;
             _userShiftBreakService = userShiftBreakService;
             _breakService = breakService;
@@ -379,7 +383,7 @@ namespace DreamProcessingIK.Controllers
         }
 
         [HttpGet]
-        public IActionResult CompanyEmployee()
+        public IActionResult CompanyEmployee() //personelleri listeleme tarafı
         {
             AppUser user = new AppUser();
             AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
@@ -659,7 +663,7 @@ namespace DreamProcessingIK.Controllers
 
             return RedirectToAction("ListEmployeeCompany", "Manager");
         }
-        public IActionResult ListEmployeeCompany()
+        public IActionResult ListEmployeeCompany() //personel listesi için kontrol et 
         {
             AppUser user = new AppUser();
             AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
@@ -807,6 +811,116 @@ namespace DreamProcessingIK.Controllers
         {
             return View();
         }
+       
+        public IActionResult AddBounty()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddBounty(AddBountyDto addBountyDto)
+        {
+            Bounty bounty = new Bounty();
+            bounty.Amount = addBountyDto.Amount;
+            bounty.Description = addBountyDto.Description;
+            _bountyService.Add(bounty);
+            
+            return View(addBountyDto);
+        }
+        public IActionResult CompanyEmployeeForBounty() //personelleri listeleme tarafı //prim için
+        {
+            AppUser user = new AppUser();
+            AppUser usera = _userManager.FindByNameAsync(User.Identity.Name).Result;
+
+            var companyFind = _userCompanyService.GetByUserId(usera.Id);
+
+
+
+            var companyList = _userCompanyService.GetList();
+            var result = (from x in companyList.ToList()
+                          join u in _userManager.Users.ToList() on x.UserId equals u.Id
+                          select new
+                          {
+                              x.UserId,
+                              u.FirstName,
+                              u.LastName,
+                              u.IsConfirmed,
+                              x.CompanyId
+
+                          }).Where(x => x.CompanyId == companyFind.CompanyId).ToList();
+            List<EmployeeListCompanyDto> employeeLists = new List<EmployeeListCompanyDto>();
+
+            foreach (var item in result)
+            {
+                if (usera.Id != item.UserId)
+                {
+                    employeeLists.Add(new EmployeeListCompanyDto()
+                    {
+                        UserId = item.UserId,
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                        IsConfirmed = item.IsConfirmed
+                    });
+                }
+            }
+
+
+            return View(employeeLists);
+        }
+        public IActionResult AddUserBounty(string id)
+        {
+            var bountyType= _bountyService.GetList().ToList();
+            ViewBag.BountyType=bountyType;
+
+           List<AddUserBountyDto>  addUserBounty = new List<AddUserBountyDto>();
+
+            AppUser userFind = _userManager.FindByIdAsync(id).Result;
+            //var result = _userBountyService
+            if (userFind is not null)
+            {
+                var resultListBounty = (from u in _userManager.Users.ToList()
+                                        join ub in _userBountyService.GetList().ToList() on u.Id equals ub.UserId
+                                        join b in _bountyService.GetList().ToList() on ub.BountyId equals b.Id
+                                        select new
+                                        {
+                                            u.Id,
+                                            FullName = u.FirstName + " " + u.LastName,
+                                            u.ConstantSalary,
+                                            ub.BountyId,
+                                            BountyType = b.Id,
+                                            b.Amount,
+                                            b.Description
+
+                                        }).Where(x => x.Id == id).ToList();
+
+                foreach (var item in  resultListBounty)
+                {
+                    addUserBounty.Add(new AddUserBountyDto()
+                    {
+                        FullName= item.FullName,
+                        ConstantSalary= (short)item.ConstantSalary,
+                        Amount= (decimal)item.Amount,
+                        Description= item.Description
+
+
+                    });
+                }
+            }
+         
+
+       
+            
+            return View();
+
+        }
+        [HttpPost]
+        public IActionResult AddUserBounty()
+        {
+
+            return View();
+        }
+
+
+
 
 
 
