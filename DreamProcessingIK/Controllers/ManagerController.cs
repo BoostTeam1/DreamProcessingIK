@@ -882,10 +882,25 @@ namespace DreamProcessingIK.Controllers
         }
 
 
+        public IActionResult AddComment()
+        {
+            AppUser appUser = _userManager.GetUserAsync(User).Result;
+            return View(appUser);
+        }
 
-
-
-
-
+        [HttpPost]
+        public IActionResult AddComment(AppUser appUser)
+        {
+            if (appUser.Comment != null)
+            {
+                _userManager.UpdateAsync(appUser);
+                return View();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Herhangi bir yorum girmediniz. Lütfen yorumunuzu yazınız");
+                return View();
+            }
+        }
     }
 }

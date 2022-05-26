@@ -23,10 +23,6 @@ namespace DreamProcessingIK.ViewComponents
         public IViewComponentResult Invoke()
         {
             AppUser usera = _userManager.FindByNameAsync("coymax00").Result;
-            //var companyFind = _userCompanyService.GetByUserId(usera.Id);
-
-
-
 
             var result = (from uv in _userVacationService.GetList().Where(x => x.UserId == usera.Id).ToList()
                           join v in _vacationService.GetList().Where(x => x.Title.ToLower() == "resmi").ToList() on uv.HolidayId equals v.Id
