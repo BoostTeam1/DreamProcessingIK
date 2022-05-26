@@ -42,10 +42,10 @@
 
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Personel Yönetimi</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a asp-controller="Employee" asp-action="UserEdit">Personel Bilgileri</a></li>
+                    <li><a asp-controller="Manager" asp-action="CompanyEmployee">Personel Bilgileri</a></li>
                     @*<li><a asp-controller="Employee" asp-action="ChangePassword">Personel İşlemleri</a></li>*@
                     <li><a asp-controller="Manager" asp-action="ApprovedVacation">Personel İzin İşlemleri</a></li>
-                   @* <li><a asp-controller="Manager" asp-action="AddDebit">Personel Zimmet İşlemleri</a></li>*@
+                  
                     <li><a asp-controller="#" asp-action="#">Personel Prim İşlemleri</a></li>
                     <li><a asp-controller="Manager" asp-action="PersonnelDocumentList">Personel Özlük Belgeleri</a></li>
                     <li><a asp-action="CreateShift" asp-controller="Manager" >Personel Vardiya İşlemleri</a></li>
@@ -69,14 +69,15 @@
 
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Üye Ayarları</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a asp-controller="Manager" asp-action="UserEdit">Kullanıcı Bilgileri</a></li>
+                    <li><a asp-controller="Manager" asp-action="EmployeeEdit">Kullanıcı Bilgileri</a></li>
                     <li><a asp-controller="Manager" asp-action="ChangePassword">Şifre Güncelle</a></li>
                  
                   
                 </ul>
             </li>
             <li>
-                <a asp-controller="" asp-action=""><i class="fa fa-pie-chart"></i> <span class="nav-label">Şirket Yorum Ekleme</span>  </a>
+       
+                <a asp-controller="Manager" asp-action="AddComment"><i class="fa fa-pie-chart"></i> <span class="nav-label">Şirket Yorum Ekleme</span>  </a>
             </li>
            
            @* <li>
