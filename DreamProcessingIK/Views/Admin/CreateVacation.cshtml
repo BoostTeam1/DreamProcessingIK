@@ -26,24 +26,24 @@
 </head>
 <body>
 
-    <h4>Vacation</h4>
+    <h4>Tatil Tanımla</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
             <form asp-action="CreateVacation">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
+                    <label asp-for="Name" class="control-label">Tatil Adı</label>
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Color" class="control-label"></label>
+                    <label asp-for="Color" class="control-label">Renk Seçimi</label>
                     <input asp-for="Color" class="form-control" />
                     <span asp-validation-for="Color" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                    <input type="submit" value="Kaydet" class="btn btn-primary" />
                 </div>
             </form>
         </div>
@@ -55,7 +55,7 @@
         </form>
     
     <div>
-        <a asp-action="Vacations">Back to Vacations</a>
+        <a asp-action="Vacations">Tatil Listesini Görüntüle</a>
     </div>
 
 </body>

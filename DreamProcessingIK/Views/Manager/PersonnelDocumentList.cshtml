@@ -4,28 +4,28 @@
     ViewData["Title"] = "PersonnelDocumentList";
 }
 
-<h1>PersonnelDocumentList</h1>
+<h1>Personnel Döküman Listesi</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="AddPersonnelDocument">Özlük Belgesi Ekle</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                Adı
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                Soyadı
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FileName)
+                Dosya Adı
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FileDetails)
+               Dosya Detay
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FileGeneratedDate)
+               Tarih
             </th>
              <th>
                 

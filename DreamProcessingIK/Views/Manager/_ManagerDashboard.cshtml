@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_Manager.cshtml";
 }
 
@@ -8,18 +7,18 @@
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y" >
+            <div class="container-xxl flex-grow-1 container-p-y" style="margin-left:50px">
               <div class="row">
                <!--Welcome Başlangıç-->
-               <partial name="_welcome" />
+             @*  <partial name="_welcome" />*@
                <!--Welcome Bitiş -->
 
              <!------------------------------------------------------------------------------------------------------------>
-                <div class="container-xxl flex-grow-1 container-p-y" style="margin-left:100px">
+                <div class="container-xxl flex-grow-1 container-p-y" >
               
                <!--Company Date List Start-->
                <!--FİRMALARIN TARİHLERİNE GÖRE SIRALAMASI OLACAK OLAN LİST SAYFASI-->
-               <partial name="_CompanyDate" />
+             
                 <partial name="_birthday" />
                  <partial name="_CostList" />
                  <partial name="_publicHoliday" />
@@ -42,40 +41,39 @@
                    
                  <!--Number Of Executive Start -->
 
-                    <div class="col-lg-6 col-md-12 col-6 mb-4">
+                   <div class="col-lg-6 col-md-12 col-6 mb-4">
+                        
                       <partial name="_numberOfExecute" />
+                      
                     </div>
+
+                 <div class="col-lg-6 col-md-12 col-6" >
+                
                     <!--Number Of Executive End-->
-                  </div>
-                </div>
+                    </div>
+                        </div>
+                    
 
                 <!------------------------------------------------------------------------------------------------------------>
 
 
                 <!--Number of Employee Start-->
-                <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+                @*<div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
                   <div class="row">
                     <partial name="_numberofEmployee">
                     </div>
-                    </div>
+                    </div>*@
                     <!--Number of Employee End -->
                <!------------------------------------------------------------------------------------------------------------>
+                   <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="row">
+               <!--Company Date List Start-->
+             
+               <partial name="_chart" />
+               <!--Company Date List End-->
+                <!------------------------------------------------------------------------------------------------------------>
                       </div>
                 </div>
               </div>
-              
-                </div>
-               
-               
+               </div>
               </div>
-            
-      
-                
-              
-
-
-
-
-
-
- 

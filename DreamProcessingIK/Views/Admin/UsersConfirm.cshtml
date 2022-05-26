@@ -6,8 +6,8 @@
 }
 <table class="table table-bordered table-striped">
     <tr>
-        <th>User Id</th>
-        <th>User Name</th>
+       
+        <th>Kullanıcı Adı</th>
         <th>Onay Durumu</th>
         <th></th>
     </tr>
@@ -22,7 +22,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.UserId</td>
+               
                 <td>@item.UserName</td>
                 <td>@item.IsConfirmed</td>
                 <td><a class="btn btn-success" asp-controller="Admin" asp-action="UsersNotConfirmed" asp-route-id="@item.UserId">  Doğrula</a> </td>
