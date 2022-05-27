@@ -35,9 +35,9 @@
                 <a  asp-action="_ManagerDashboard" asp-controller="Manager"><i class="fa fa-pencil"></i> <span class="nav-label"> Dashboard</span>  </a>
             </li>
 
-              <li>
+             @* <li>
                 <a asp-controller="Manager" asp-action="Chart"><i class="fa fa-pie-chart"></i> <span class="nav-label">Personel Grafik Detay</span>  </a>
-            </li>
+            </li>*@
             <li>
 
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Personel Yönetimi</span><span class="fa arrow"></span></a>
@@ -46,7 +46,8 @@
                     @*<li><a asp-controller="Employee" asp-action="ChangePassword">Personel İşlemleri</a></li>*@
                     <li><a asp-controller="Manager" asp-action="ApprovedVacation">Personel İzin İşlemleri</a></li>
                   
-                    <li><a asp-controller="#" asp-action="#">Personel Prim İşlemleri</a></li>
+       
+                    <li><a asp-controller="Manager" asp-action="UserBountyList">Personel Prim İşlemleri</a></li>
                     <li><a asp-controller="Manager" asp-action="PersonnelDocumentList">Personel Özlük Belgeleri</a></li>
                     <li><a asp-action="CreateShift" asp-controller="Manager" >Personel Vardiya İşlemleri</a></li>
                     <li><a asp-action="CreateBreak" asp-controller="Manager" >Personel Mola İşlemleri</a></li>
@@ -69,7 +70,7 @@
 
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Üye Ayarları</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a asp-controller="Manager" asp-action="EmployeeEdit">Kullanıcı Bilgileri</a></li>
+                    <li><a asp-controller="Home" asp-action="UserEdit">Kullanıcı Bilgileri</a></li>
                     <li><a asp-controller="Manager" asp-action="ChangePassword">Şifre Güncelle</a></li>
                  
                   

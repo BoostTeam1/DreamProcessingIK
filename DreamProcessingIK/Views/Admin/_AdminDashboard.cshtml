@@ -1,5 +1,8 @@
 ﻿
-
+@{
+    ViewData["Title"] = "Chart";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
@@ -9,27 +12,31 @@
                <!--Welcome Başlangıç-->
                <partial name="_welcome" />
                <!--Welcome Bitiş -->
-
+             
              <!------------------------------------------------------------------------------------------------------------>
 
               <div class="container-xxl flex-grow-1 container-p-y" >
-            
+               
                <!--Company Date List Start-->
                <!--FİRMALARIN TARİHLERİNE GÖRE SIRALAMASI OLACAK OLAN LİST SAYFASI-->
                <partial name="_CompanyDate" />
-               </div>
+               
+              </div>
                <!--Company Date List End-->
 
                <!------------------------------------------------------------------------------------------------------------>
 
                 <div class="col-lg-4 col-md-4 order-1">
-                  <div class="row">
+                   <div class="row">
                        <!--Number Of Company Start -->
 
                     <div class="col-lg-6 col-md-12 col-6 mb-4">
                       <partial name="_numberofCompany" />
+                       <partial name="_numberofEmployee">
+                     
                     
                     </div>
+                    
                     
                        <!--Number Of Company End -->
 
@@ -39,49 +46,39 @@
 
                     <div class="col-lg-6 col-md-12 col-6 mb-4">
                         
-                      <partial name="_numberOfExecute" />
+                      
+                    <partial name="_numberOfExecute">
                       
                     </div>
-                 <div class="col-lg-6 col-md-12 col-6" >
-                  <div class="row">
-                    <partial name="_numberofEmployee">
-                    </div>
+                 
                     <!--Number Of Executive End-->
                     </div>
-                        </div>
-                    
-                    
-             
-                    <!------------------------------------------------------------------------------------------------------------>
-                  @*  <!--Number of Employee Start-->
-                    
-                 <div class="col-lg-6 col-md-12 col-6 mb-4" style="height:187px">
-                  <div class="row">
-                    <partial name="_numberofEmployee">
                     </div>
-                    </div>
-                    <!--Number of Employee End -->*@
+                        
                <!------------------------------------------------------------------------------------------------------------>
-                <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-               <!--Company Date List Start-->
-               <!--FİRMALARIN TARİHLERİNE GÖRE SIRALAMASI OLACAK OLAN LİST SAYFASI-->
-               <partial name="_chart" />
-               <!--Company Date List End-->
+                 
+                       <div class="row">
+                <!-- Order Statistics -->
+                <div class="col-md-4 col-lg-4 col-xl-4 order-0 mb-4">
+                  <div class="card h-100">
 
-             
-                   
+                      <!--Sector Chart Start -->
+                       <partial name="_chart">
+
+                      <!--Sector Chart End -->
+                  </div>
+                </div>
+
                <!------------------------------------------------------------------------------------------------------------>
                   </div>
+               </div>
                 </div>
               </div>
-              
-               
-                  </div>
-                </div>
-
-            
                 
+               
+
+
+
               
             
            

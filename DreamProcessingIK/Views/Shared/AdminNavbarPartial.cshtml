@@ -34,7 +34,7 @@
              <li>
                 <a  asp-action="_AdminDashboard" asp-controller="Admin"><i class="fa fa-pencil"></i> <span class="nav-label">Dashboard</span>  </a>
             </li>
-
+            
             <li>
 
                 <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Şirket Bilgileri</span><span class="fa arrow"></span></a>
@@ -43,13 +43,12 @@
                     <li><a asp-controller="Home" asp-action="ChangePassword">Şifre Güncelle</a></li>
                     <li><a asp-controller="Admin" asp-action="GetCompanies">Şirket İsimleri</a></li>
                     <li><a asp-controller="Admin" asp-action="CreateCompany">Şirket Oluştur</a></li>
-                  @*  <li><a asp-controller="Admin" asp-action="Chart">Üye Grafiği</a></li>*@
+                   <li><a asp-controller="Admin" asp-action="Chart">Üye Grafiği</a></li>
                     <li><a href="#">Sektör Oluştur</a></li>
                     <li><a asp-action="ManagerList" asp-controller="Admin" >Yönetici Listesi</a></li>
                     <li><a asp-action="PersonelList" asp-controller="Admin" >Personel Listesi</a></li>
                    <li><a asp-action="Users" asp-controller="Admin" >Kullanıcılar</a></li>
 
-                 <li><a asp-action="SendMessageAllUsers" asp-controller="Admin" >Kullanıcılar</a></li>
                   
                 </ul>
             </li>
@@ -79,6 +78,9 @@
             <li>
                 <a asp-controller="Admin" asp-action="Vacations"><i class="fa fa-tags"></i> <span class="nav-label">İzin İşlemleri</span>  </a>
             </li>
+            <li><a asp-action="SendMessageAllUsers" asp-controller="Admin" >Bütün Kullanıcılara Mesaj At</a></li>
+                  
+                </ul>
            @* <li>
                 <a asp-controller="Calendar" asp-action="Calendar"><i class="fa fa-pencil"></i> <span class="nav-label">Takvim</span>  </a>
             </li>*@
