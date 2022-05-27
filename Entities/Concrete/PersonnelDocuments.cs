@@ -15,7 +15,7 @@ namespace Entities.Concrete
         [ForeignKey("AppUser")]
         public string AppUserId { get; set; }
         public virtual AppUser AppUser { get; set; }
-
+        public string FilePath { get; set; }
         public string FileName { get; set; }
         public string FileDetails { get; set; }
         public DateTime FileGeneratedDate { get; set; }
