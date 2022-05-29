@@ -286,6 +286,42 @@ namespace DreamProcessingIK.Controllers
             }
             return View(userEditDto);
         }
+        [HttpGet]
+        public IActionResult UserEditManager()
+        {
+            AppUser appUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            UserEditDto user = appUser.Adapt<UserEditDto>();
+            return View(user);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UserEditManager(UserEditDto userEditDto)
+        {
+            ModelState.Remove("Password");
+            //ModelState.Remove(userEditDto.Password);
+            if (ModelState.IsValid)
+            {
+                AppUser appUser = _userManager.FindByNameAsync(User.Identity.Name).Result;
+                appUser.UserName = userEditDto.UserName;
+                appUser.FirstName = userEditDto.FirstName;
+                appUser.LastName = userEditDto.LastName;
+                appUser.PhoneNumber = userEditDto.PhoneNumber;
+                appUser.BirthPlace = userEditDto.BirthPlace;
+                appUser.BirthDate = userEditDto.BirthDate;
+                IdentityResult result = await _userManager.UpdateAsync(appUser);
+                if (result.Succeeded)
+                {
+                    await _userManager.UpdateSecurityStampAsync(appUser);
+                    await _signInManager.SignOutAsync();
+                    await _signInManager.SignInAsync(appUser, true);
+                    ViewBag.succeeded = "true";
+                }
+                else
+                {
+                    AddModelError(result);
+                }
+            }
+            return View(userEditDto);
+        }
 
         [HttpGet]
         public IActionResult ChangePassword()

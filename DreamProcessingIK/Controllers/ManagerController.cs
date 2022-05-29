@@ -450,7 +450,7 @@ namespace DreamProcessingIK.Controllers
             }
             ViewBag.Category = new SelectList(categoryList, "Key", "Value");
 
-            return View();
+            return RedirectToAction("CompanyEmployee");
         }
         [HttpPost]
         public IActionResult AddDebit(RequestDebitVmDto requestDebitVmDto)
@@ -473,6 +473,7 @@ namespace DreamProcessingIK.Controllers
 
             return View();
         }
+       
         public IActionResult DebitList()
         {
 
@@ -631,8 +632,22 @@ namespace DreamProcessingIK.Controllers
             return View(_personnelDocumentService.GetById(id));
         }
         [HttpPost]
-        public IActionResult UpdatePersonnelDocument(PersonnelDocuments personelDocument)
+        public IActionResult UpdatePersonnelDocument(PersonnelDocuments personelDocument, PersonnelDocumentsDto personelDocumentDto)
         {
+         
+            PersonnelDocuments personnelDocuments = new PersonnelDocuments() { FileName = personelDocumentDto.FileName, FileDetails = personelDocumentDto.FileDetails, FileGeneratedDate = personelDocumentDto.FileGeneratedDate };
+            if (personelDocumentDto.FileName != null)
+            {
+                var extension = Path.GetExtension(personelDocumentDto.FilePath.FileName);
+                var newFileName = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/files/", newFileName);
+                var stream = new FileStream(location, FileMode.Create);
+                personelDocumentDto.FilePath.CopyTo(stream);
+                personnelDocuments.FilePath = newFileName;
+            }
+            personnelDocuments.AppUserId = TempData["userId"].ToString();
+            _personnelDocumentService.Add(personnelDocuments);
+
             personelDocument.Id = (int)TempData["documentId"];
             personelDocument.AppUserId = TempData["userId"].ToString();
             _personnelDocumentService.Update(personelDocument);

@@ -2,7 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Manager.cshtml";
 }
-
+<h1>Yeni Döküman Ekle</h1>
 <form asp-controller="Manager"  asp-action="AddPersonnelDocument"  method="post" enctype="multipart/form-data">
                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                <div class="form-group first">
@@ -20,7 +20,7 @@
               </div>
               <div class="form-group last mb-4">
                 <label asp-for="FileGeneratedDate" class="control-label"> </label>
-                 <input asp-for="FileGeneratedDate" class="form-control" type="datetime">
+                 <input asp-for="FileGeneratedDate" class="form-control" >
                 <span asp-validation-for="FileGeneratedDate" class="text-danger"></span>
               </div>
               <input type="submit" value="Kaydet" class="btn btn-block btn-primary">

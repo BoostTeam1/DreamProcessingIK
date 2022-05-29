@@ -3,7 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Manager.cshtml";
 }
-
+<h1> Verilen Zimmet Listesi </h1>
 <!DOCTYPE html>
 
 <html>
@@ -12,20 +12,17 @@
     <title>DebitList</title>
 </head>
 <body>
-@*<p>
-    <a asp-action="CreateDebit">Create New</a>
-</p>*@
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+               Ürün Adı
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductDetail)
-            </th>
+               Ürün Detayı
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+               Kategori
             </th>
             <th></th>
         </tr>

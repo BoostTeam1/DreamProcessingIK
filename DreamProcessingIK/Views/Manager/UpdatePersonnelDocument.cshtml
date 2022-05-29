@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Manager.cshtml";
 }
 
+<h1>Personel Döküman Güncelle</h1>
 <form asp-controller="Manager"  asp-action="UpdatePersonnelDocument"  method="post">
                  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group first">
@@ -14,6 +15,9 @@
                     <label asp-for="FileDetails">Dosya Detayları:</label>
                     <input asp-for="FileDetails" class="form-control" type="text" > 
                     <span asp-validation-for="FileDetails" class="text-danger"></span>
+              </div>
+                <div class="form-group first">
+                    <input asp-for="FilePath" class="form-control" type="file" > 
               </div>
               <div class="form-group last mb-4">
                 <label asp-for="FileGeneratedDate" class="control-label"> Tarih </label>
