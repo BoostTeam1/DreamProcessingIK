@@ -35,8 +35,10 @@ namespace DreamProcessingIK.ViewComponents
                           {
 
                               CompanyId = (int)x.CompanyId,
+                              UserId = u.Id,
                               Birthday = (System.DateTime)u.BirthDate,
-                              Name = u.FirstName + " " + u.LastName
+                              FirstName = u.FirstName,
+                              LastName = u.LastName
 
                           }).ToList();
             List<CompanyDateDto> company = new List<CompanyDateDto>();
@@ -44,7 +46,9 @@ namespace DreamProcessingIK.ViewComponents
             {
                 company.Add(new CompanyDateDto()
                 {
-                    Name = date.Name,
+                    UserId = date.UserId,
+                    FirstName = date.FirstName,
+                    LastName = date.LastName,
                     Birthday = date.Birthday
                 });
 

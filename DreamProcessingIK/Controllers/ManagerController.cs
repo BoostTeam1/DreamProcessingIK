@@ -123,7 +123,7 @@ namespace DreamProcessingIK.Controllers
             }
             return View(employeeAddDto);
         }
-        public IActionResult EmployeeEdit(UserEditDto userEditDto, string id)
+        public IActionResult EmployeeEdit(string id)
         {
             AppUser user = _userManager.FindByIdAsync(id).Result;
             UserEditDto userEdit = user.Adapt<UserEditDto>();
@@ -848,6 +848,11 @@ namespace DreamProcessingIK.Controllers
             return View(addBountyDto);
         }
 
+        public async Task<IActionResult> DeleteEmployee(string userId)
+        {
+            await _userManager.DeleteAsync(_userManager.FindByIdAsync(userId).Result);
+            return RedirectToAction("_ManagerDashboard");
+        }
 
         public IActionResult UserBountyList()
         {
